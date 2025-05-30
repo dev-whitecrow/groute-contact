@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Groute Team</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Groute Colors */
+            --neon-green: #39FF14;
+            --toned-green: #4A9B5E;
+            --deep-charcoal: #1A1A1A;
+            --neon-purple: #BC13FE;
+            --electric-blue: #0892D0;
+            --vibrant-coral: #FF4D6D;
+            --near-black: #121212;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #999999;
+            --pale-gray: #E0E0E0;
+            --off-white: #F5F5F5;
+            --pure-white: #FFFFFF;
+            
+            /* Success/Error Colors */
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --error: #F44336;
+            --info: #2196F3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--near-black);
+            color: var(--pure-white);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(57, 255, 20, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(188, 19, 254, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(8, 146, 208, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-title .contact-text {
+            color: var(--pure-white);
+        }
+
+        .header-title .groute-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+        }
+
+        .header-title .team-text {
+            color: var(--pure-white);
+        }
+
+        .form-container {
+            background: rgba(51, 51, 51, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.2);
+        }
+
+        .section-divider {
+            margin: 4rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--medium-gray), transparent);
+        }
+
+        .section-title {
+            background: rgba(51, 51, 51, 0.9);
+            padding: 1rem 2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            border-radius: 25px;
+            border: 1px solid var(--medium-gray);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--toned-green);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: var(--pure-white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            border-color: var(--toned-green);
+            box-shadow: 0 0 0 3px rgba(74, 155, 94, 0.2);
+            background: rgba(26, 26, 26, 0.9);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--medium-gray);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        /* Star Rating System */
+        .star-rating-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .star-rating-scale {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .star-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            cursor: pointer;
+        }
+
+        .star-item .star {
+            font-size: 2rem;
+            color: var(--medium-gray);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .star-item .star:hover {
+            transform: scale(1.1);
+            color: var(--light-gray);
+        }
+
+        .star-item .star.filled {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .star-item input[type="radio"] {
+            display: none;
+        }
+
+        .star-label {
+            font-size: 0.8rem;
+            color: var(--light-gray);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .rating-description {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--medium-gray);
+            margin-top: 0.75rem;
+        }
+
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            margin-top: 0.5rem;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: rgba(26, 26, 26, 0.6);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .radio-item:hover,
+        .checkbox-item:hover {
+            background: rgba(74, 155, 94, 0.2);
+            border-color: var(--toned-green);
+        }
+
+        .radio-item input,
+        .checkbox-item input {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item input {
+            border-radius: 4px;
+        }
+
+        .radio-item input:checked,
+        .checkbox-item input:checked {
+            border-color: var(--toned-green);
+            background: var(--toned-green);
+        }
+
+        .radio-item input:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--deep-charcoal);
+            border-radius: 50%;
+        }
+
+        .checkbox-item input:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--deep-charcoal);
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--toned-green), var(--electric-blue));
+            border: none;
+            border-radius: 24px;
+            color: var(--pure-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 20px rgba(74, 155, 94, 0.3);
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(74, 155, 94, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            color: var(--success);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .radio-group,
+            .checkbox-group {
+                flex-direction: column;
+            }
+
+            .star-rating-scale {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .form-group {
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(74, 155, 94, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--toned-green);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Regular Rating System (for non-star ratings) */
+        .rating-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .rating-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .rating-item input[type="radio"] {
+            appearance: none;
+            width: 35px;
+            height: 35px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rating-item input[type="radio"]:hover {
+            border-color: var(--toned-green);
+            transform: scale(1.1);
+        }
+
+        .rating-item input[type="radio"]:checked {
+            border-color: var(--toned-green);
+            background: var(--toned-green);
+        }
+
+        .rating-item input[type="radio"]:checked::after {
+            content: attr(value);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--pure-white);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .rating-label {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="header-title">
+                <span class="contact-text">Contact the </span>
+                <span class="groute-text">Groute</span>
+                <span class="team-text"> Team</span>
+            </h1>
+        </div>
+
+        <div class="form-container">
+            <!-- Success message after form submission -->
+            <div class="success-message" id="successMessage">
+                <h3>Your message has been sent successfully! 🎉</h3>
+                <p>We'll get back to you soon.</p>
+                <p>Thank you for reaching out!</p>
+            </div>
+
+            <!-- Actual form connected to Google Forms -->
+            <form 
+                id="contactForm" 
+                action="https://docs.google.com/forms/d/e/1FAIpQLSfHjM0vQFl1FScbnuITsjDIHF73FCGCRiVzqi1wdi6eyEEiXQ/formResponse" 
+                method="POST" 
+                target="hidden_iframe" 
+                onsubmit="submitted=true;"
+            >
+                
+                <div class="form-group">
+                    <label class="form-label" for="contact-type">Contact Type *</label>
+                    <select 
+                        class="form-select" 
+                        id="contact-type" 
+                        name="entry.1246962862"
+                        required
+                    >
+                        <option value="">Choose</option>
+                        <option value="Report a Bug">Report a Bug</option>
+                        <option value="Feature Request">Feature Request</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="message">Message *</label>
+                    <textarea 
+                        class="form-textarea" 
+                        id="message" 
+                        name="entry.322719243" 
+                        placeholder="Please describe your feedback in detail here..."
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Section Divider for Optional Fields -->
+                <div class="section-divider">
+                    <span class="section-title">Optional Feedback</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How satisfied are you with Groute?</label>
+                    <div class="star-rating-group">
+                        <div class="star-rating-scale">
+                            <div class="star-item" onclick="setStarRating('entry.1175565095', 1)">
+                                <span class="star" data-value="1">☆</span>
+                                <input type="radio" id="satisfaction-1" name="entry.1175565095" value="1">
+                                <label for="satisfaction-1" class="star-label">1</label>
+                            </div>
+                            <div class="star-item" onclick="setStarRating('entry.1175565095', 2)">
+                                <span class="star" data-value="2">☆</span>
+                                <input type="radio" id="satisfaction-2" name="entry.1175565095" value="2">
+                                <label for="satisfaction-2" class="star-label">2</label>
+                            </div>
+                            <div class="star-item" onclick="setStarRating('entry.1175565095', 3)">
+                                <span class="star" data-value="3">☆</span>
+                                <input type="radio" id="satisfaction-3" name="entry.1175565095" value="3">
+                                <label for="satisfaction-3" class="star-label">3</label>
+                            </div>
+                            <div class="star-item" onclick="setStarRating('entry.1175565095', 4)">
+                                <span class="star" data-value="4">☆</span>
+                                <input type="radio" id="satisfaction-4" name="entry.1175565095" value="4">
+                                <label for="satisfaction-4" class="star-label">4</label>
+                            </div>
+                            <div class="star-item" onclick="setStarRating('entry.1175565095', 5)">
+                                <span class="star" data-value="5">☆</span>
+                                <input type="radio" id="satisfaction-5" name="entry.1175565095" value="5">
+                                <label for="satisfaction-5" class="star-label">5</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="rating-reason">What's the reason for this rating?</label>
+                    <textarea 
+                        class="form-textarea" 
+                        id="rating-reason" 
+                        name="entry.2144232669" 
+                        placeholder="Please describe your feedback in detail here..."
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Which best describes you?</label>
+                    <div class="rating-group">
+                        <div class="rating-scale">
+                            <div class="rating-item">
+                                <input type="radio" id="travel-style-1" name="entry.1254638941" value="1">
+                                <label for="travel-style-1" class="rating-label">1</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="travel-style-2" name="entry.1254638941" value="2">
+                                <label for="travel-style-2" class="rating-label">2</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="travel-style-3" name="entry.1254638941" value="3">
+                                <label for="travel-style-3" class="rating-label">3</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="travel-style-4" name="entry.1254638941" value="4">
+                                <label for="travel-style-4" class="rating-label">4</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="travel-style-5" name="entry.1254638941" value="5">
+                                <label for="travel-style-5" class="rating-label">5</label>
+                            </div>
+                        </div>
+                        <div class="rating-description">
+                            <span>Never travel (Homebody)</span>
+                            <span>Always traveling (Digital Nomad)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How often do friends ask you for travel recommendations?</label>
+                    <div class="rating-group">
+                        <div class="rating-scale">
+                            <div class="rating-item">
+                                <input type="radio" id="recommendations-1" name="entry.524427365" value="1">
+                                <label for="recommendations-1" class="rating-label">1</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="recommendations-2" name="entry.524427365" value="2">
+                                <label for="recommendations-2" class="rating-label">2</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="recommendations-3" name="entry.524427365" value="3">
+                                <label for="recommendations-3" class="rating-label">3</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="recommendations-4" name="entry.524427365" value="4">
+                                <label for="recommendations-4" class="rating-label">4</label>
+                            </div>
+                            <div class="rating-item">
+                                <input type="radio" id="recommendations-5" name="entry.524427365" value="5">
+                                <label for="recommendations-5" class="rating-label">5</label>
+                            </div>
+                        </div>
+                        <div class="rating-description">
+                            <span>Rarely</span>
+                            <span>Frequently</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Your Email for follow-up</label>
+                    <input 
+                        type="email" 
+                        class="form-input" 
+                        id="email" 
+                        name="entry.694292935" 
+                        placeholder="your.email@example.com"
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Submit ✈️
+                </button>
+
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Sending message...</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden iframe to prevent Google Forms redirection -->
+    <iframe 
+        name="hidden_iframe" 
+        id="hidden_iframe" 
+        style="display: none;" 
+        onload="if(submitted) { showSuccess(); }"
+    ></iframe>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var submitted = false;
+
+        // Star rating function
+        function setStarRating(inputName, rating) {
+            // Set the radio button value
+            const radioButton = document.querySelector(`input[name="${inputName}"][value="${rating}"]`);
+            if (radioButton) {
+                radioButton.checked = true;
+            }
+
+            // Update star display
+            const starContainer = radioButton.closest('.star-rating-scale');
+            const stars = starContainer.querySelectorAll('.star');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('filled');
+                    star.textContent = '★';
+                } else {
+                    star.classList.remove('filled');
+                    star.textContent = '☆';
+                }
+            });
+        }
+
+        function showSuccess() {
+            // Hide form
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('loading').classList.remove('show');
+            
+            // Show success message
+            document.getElementById('successMessage').classList.add('show');
+            
+            // Show form again after 5 seconds (optional)
+            setTimeout(function() {
+                document.getElementById('contactForm').style.display = 'block';
+                document.getElementById('successMessage').classList.remove('show');
+                document.getElementById('contactForm').reset();
+                
+                // Reset star ratings
+                document.querySelectorAll('.star').forEach(function(star) {
+                    star.classList.remove('filled');
+                    star.textContent = '☆';
+                });
+                
+                submitted = false;
+            }, 5000);
+        }
+
+        // Show loading animation on form submit
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            document.getElementById('loading').classList.add('show');
+        });
+
+        // Input field interaction effects
+        document.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(function(input) {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Regular radio button interactions (for non-star ratings)
+        document.querySelectorAll('.rating-item input[type="radio"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                // Reset styles for other radio buttons in same group
+                const groupName = this.name;
+                document.querySelectorAll(`input[name="${groupName}"]`).forEach(function(r) {
+                    r.parentElement.style.transform = 'scale(1)';
+                });
+                
+                // Highlight selected radio button
+                this.parentElement.style.transform = 'scale(1.1)';
+                
+                setTimeout(() => {
+                    this.parentElement.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html> 
