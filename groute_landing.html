@@ -57,11 +57,14 @@
         // 페이지 로드 시 파티클 생성
         window.addEventListener('load', createParticles);
         
-        // 자동 리다이렉트 (2초 후)
+        // 자동 리다이렉트 (5초 후)
         setTimeout(function() {
-            trackAppStoreClick();
+            gtag('event', 'auto_redirect_to_appstore', {
+                'event_category': 'conversion',
+                'utm_source': utmSource
+            });
             window.location.href = 'https://apps.apple.com/kr/app/groute/id6744373820?l=en-GB';
-        }, 2000);
+        }, 5000);
     </script>
     
     <style>
