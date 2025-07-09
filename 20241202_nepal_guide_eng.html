@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey Guide - Dec 2, 2024</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+                body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            min-height: 100vh;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            padding-top: 60px; /* 고정 헤더 높이만큼 상단 패딩 추가 */
+        }
+        
+        .header-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: #1e3a8a;
+            padding: 10px 20px;
+            color: white;
+            height: 60px;
+            box-sizing: border-box;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .wordmark {
+            height: 20px;
+        }
+        
+        .header-app-link {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-app-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .map-container {
+            position: sticky;
+            top: 60px; /* 고정 헤더 높이만큼 조정 */
+            z-index: 100;
+            width: 100%;
+            height: 30vh;
+            transition: all 0.3s ease;
+        }
+        
+
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+                /* 우크라이나 국기 및 attribution 링크 제거 */
+
+        .leaflet-attribution-flag {
+            display: none !important;
+        }
+        .content-section {
+            position: relative;
+            z-index: 5;
+            background: white;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            margin-top: -20px;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            text-align: left;
+            padding: 20px 0;
+            color: white;
+            background: #1e3a8a;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .page-title-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .journey-grid {
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .moment-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease;
+        }
+        
+        .moment-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .moment-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .moment-content {
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .moment-info {
+            flex: 1;
+        }
+        
+        .moment-number {
+            background: #000000;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            border: 3px solid #4EDC06;
+            flex-shrink: 0;
+        }
+        
+        .moment-card.highlight .moment-number {
+            background: #4EDC06;
+            color: black;
+        }
+        
+        .moment-location-name {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        
+        .moment-time {
+            color: #666;
+            font-size: 0.8em;
+            margin-bottom: 8px;
+        }
+        
+        .moment-memo {
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .moment-location {
+            display: inline-block;
+            background: #f0f2f5;
+            color: #333;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .moment-location:hover {
+            background: #e9ecef;
+            color: black;
+        }
+        
+        /* 커스텀 마커 스타일 */
+        .custom-marker {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .marker-photo {
+            width: 50px !important;
+            height: 50px !important;
+            object-fit: cover !important;
+            object-position: center center;
+            border-radius: 8px;
+            border: 3px solid #000000;
+            background: black;
+            display: block;
+        }
+        
+        .marker-triangle {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #000000;
+            margin-top: -1px;
+        }
+        
+        .marker-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #000000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: -1px;
+            border: 2px solid #000000;
+        }
+        
+        .custom-marker.highlighted .marker-photo {
+            border-color: #4EDC06;
+            border-width: 4px;
+            box-shadow: 0 0 10px rgba(78, 220, 6, 0.5);
+        }
+        
+        .custom-marker.highlighted .marker-triangle {
+            border-top-color: #4EDC06;
+        }
+        
+        .custom-marker.highlighted .marker-circle {
+            background: #4EDC06;
+            color: black;
+            border: 2px solid #4EDC06;
+            box-shadow: 0 0 10px rgba(78, 220, 6, 0.5);
+        }
+        
+        .custom-marker-container {
+            background: transparent !important;
+            border: none !important;
+            z-index: 1000;
+        }
+        
+        .custom-marker-container.highlighted {
+            z-index: 2000 !important;
+        }
+        
+        .bottom-section {
+            text-align: center;
+            padding: 40px 5px;
+            background: white;
+        }
+        
+        .copyright {
+            color: #999;
+            font-size: 0.85em;
+            margin-bottom: 20px;
+        }
+        
+        .bottom-app-link {
+            display: inline-block;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .bottom-app-link:hover {
+            background: #555;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding-top: 60px; /* 헤더 높이와 동일하게 유지 */
+            }
+            
+            .header-section {
+                padding: 10px 16px; /* 패딩 조정 */
+                height: 60px; /* 고정 높이 설정 */
+                box-sizing: border-box;
+            }
+            
+            .header-content {
+                gap: 12px;
+                height: 100%;
+            }
+            
+            .logo-section {
+                gap: 8px;
+            }
+            
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .wordmark {
+                height: 16px;
+            }
+            
+            .header-app-link {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+            
+            .map-container {
+                top: 60px; /* 헤더 높이와 정확히 맞춤 */
+            }
+            
+            .page-title {
+                padding: 15px 0;
+            }
+            
+            .page-title-content {
+                padding: 0 16px;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .title {
+                font-size: 1.3em;
+            }
+            
+            .subtitle {
+                font-size: 0.9em;
+            }
+            
+            .journey-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-section">
+        <div class="header-content">
+            <div class="logo-section">
+                <svg class="logo-icon" viewBox="0 0 444 444" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.483643 156.388C0.483643 101.759 0.483643 74.4448 11.1151 53.5794C20.4668 35.2256 35.3889 20.3035 53.7427 10.9518C74.6082 0.320312 101.923 0.320312 156.551 0.320312H287.79C342.419 0.320312 369.734 0.320312 390.599 10.9518C408.953 20.3035 423.875 35.2256 433.227 53.5794C443.858 74.4448 443.858 101.759 443.858 156.388V287.627C443.858 342.256 443.858 369.57 433.227 390.436C423.875 408.79 408.953 423.712 390.599 433.063C369.734 443.695 342.419 443.695 287.79 443.695H156.551C101.923 443.695 74.6082 443.695 53.7427 433.063C35.3889 423.712 20.4668 408.79 11.1151 390.436C0.483643 369.57 0.483643 342.256 0.483643 287.627V156.388Z" fill="url(#paint0_linear_492_2811)"/>
+                    <path d="M223.341 106.73C257.014 106.73 284.822 110.892 306.766 119.216C328.71 127.539 345.547 138.89 357.275 153.267C369.004 167.455 376.382 183.534 379.409 201.506L256.825 230.449C258.905 223.261 259 217.018 257.108 211.721C255.217 206.424 251.433 202.263 245.758 199.236C240.083 196.209 232.516 194.696 223.057 194.696C214.166 194.696 207.072 195.925 201.775 198.385C196.668 200.844 192.979 203.965 190.709 207.749C188.628 211.343 187.587 215.221 187.587 219.383C187.587 222.41 188.249 225.342 189.574 228.179C190.898 230.828 192.979 233.287 195.816 235.557C198.654 237.827 202.343 239.624 206.883 240.949C211.423 242.273 216.814 242.935 223.057 242.935C232.705 242.935 240.177 241.894 245.474 239.813C250.771 237.543 254.554 234.422 256.825 230.449C253.798 241.611 250.771 252.866 247.744 264.217C244.717 275.567 241.596 287.012 238.38 298.552C235.353 309.902 232.327 321.158 229.3 332.319C224.192 333.265 219.179 333.927 214.261 334.305C209.531 334.873 203.856 335.157 197.235 335.157C182.858 335.157 169.616 333.833 157.509 331.184C145.591 328.536 134.808 324.847 125.16 320.117C115.512 315.199 106.999 309.335 99.6217 302.524C92.4331 295.714 86.3795 288.147 81.461 279.824C76.7317 271.311 73.1374 262.23 70.6782 252.583C68.2189 242.746 66.9893 232.53 66.9893 221.937C66.9893 213.235 67.8406 204.816 69.5431 196.682C71.4349 188.358 74.2725 180.413 78.0559 172.846C82.0286 165.09 87.0417 157.902 93.0952 151.28C99.1487 144.47 106.243 138.417 114.377 133.12C122.701 127.634 132.254 122.904 143.037 118.932C153.82 114.959 165.832 111.932 179.074 109.852C192.506 107.771 207.261 106.73 223.341 106.73ZM256.825 328.063C256.825 317.091 256.825 306.213 256.825 295.43C256.825 284.648 256.825 273.865 256.825 263.082C256.825 252.11 256.825 241.232 256.825 230.449C270.256 230.449 283.593 230.449 296.835 230.449C310.266 230.449 323.697 230.449 337.129 230.449C350.56 230.449 363.897 230.449 377.139 230.449V328.063H256.825Z" fill="url(#paint1_linear_492_2811)"/>
+                    <defs>
+                        <linearGradient id="paint0_linear_492_2811" x1="222.171" y1="0.320312" x2="222.171" y2="443.695" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#052112"/>
+                            <stop offset="1" stop-color="#050909"/>
+                        </linearGradient>
+                        <linearGradient id="paint1_linear_492_2811" x1="224.321" y1="26.5676" x2="224.321" y2="403.436" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00FFD1"/>
+                            <stop offset="1" stop-color="#FFF500"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <svg class="wordmark" viewBox="0 0 208 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M38.4318 4.43866C38.4318 7.87215 38.4318 11.3198 38.4318 14.7817C38.4318 18.2436 38.4318 21.7054 38.4318 25.1673C38.4318 26.6996 38.0771 28.09 37.3677 29.3386C36.6583 30.5587 35.6793 31.637 34.4307 32.5734C33.1822 33.5382 31.735 34.3327 30.0892 34.957C28.4434 35.5813 26.6699 36.0495 24.7687 36.3616C22.8675 36.7021 20.938 36.8724 18.98 36.8724C16.4829 36.8724 14.0142 36.6028 11.5739 36.0637C9.13356 35.5245 6.94861 34.7158 5.01905 33.6375V26.8699C5.84195 27.409 6.83511 27.9056 7.99852 28.3596C9.19031 28.7852 10.453 29.1257 11.7867 29.3811C13.1204 29.6365 14.4399 29.7642 15.7452 29.7642C16.8235 29.7642 17.8308 29.6649 18.7672 29.4663C19.732 29.2393 20.5833 28.8987 21.321 28.4447C22.0588 27.9907 22.6405 27.3948 23.0662 26.657C23.4918 25.9193 23.7046 25.0112 23.7046 23.9329V16.0586C23.7046 15.5478 23.6053 15.108 23.4067 14.7391C23.208 14.3702 22.9101 14.0723 22.5128 13.8453C22.1439 13.5899 21.7041 13.4055 21.1933 13.292C20.6826 13.1501 20.1151 13.0791 19.4908 13.0791C18.6395 13.0791 17.8734 13.1926 17.1923 13.4196C16.5397 13.6183 16.0289 13.9304 15.66 14.3561C15.2911 14.7817 15.1067 15.3067 15.1067 15.9309C15.1067 16.5836 15.2911 17.1369 15.66 17.5909C16.0573 18.0449 16.5823 18.3996 17.2349 18.655C17.8875 18.882 18.6395 18.9955 19.4908 18.9955C21.7609 18.9955 23.1655 18.1726 23.7046 16.5268L21.1508 26.5293C19.959 27.2387 18.7814 27.6644 17.618 27.8063C16.4546 27.9481 15.277 28.0191 14.0852 28.0191C12.3542 28.0191 10.6942 27.7495 9.10519 27.2104C7.51613 26.6428 6.09733 25.8483 4.84879 24.8268C3.62862 23.7769 2.64965 22.5141 1.91188 21.0386C1.20248 19.5347 0.847778 17.8321 0.847778 15.9309C0.847778 14.654 1.01803 13.4764 1.35855 12.3981C1.69906 11.3198 2.18145 10.3267 2.80572 9.41864C3.42999 8.51061 4.16777 7.71608 5.01905 7.03506C5.8987 6.32566 6.8493 5.72976 7.87083 5.24737C8.92074 4.76498 10.0274 4.41028 11.1908 4.18327C12.3826 3.92789 13.5886 3.80019 14.8088 3.80019C15.3763 3.80019 15.9864 3.84276 16.639 3.92789C17.2917 3.98464 17.9443 4.09814 18.5969 4.2684C19.278 4.41028 19.9306 4.6231 20.5549 4.90686C21.1792 5.16224 21.7467 5.48857 22.2574 5.88583C22.7966 6.25472 23.2506 6.70873 23.6195 7.24788C23.6479 7.30463 23.6621 7.333 23.6621 7.333C23.6904 7.333 23.7046 7.31881 23.7046 7.29044C23.7046 7.26206 23.7046 7.23369 23.7046 7.20531C23.7046 6.89318 23.7046 6.43916 23.7046 5.84327C23.7046 5.21899 23.7046 4.75079 23.7046 4.43866H38.4318Z" fill="white"/>
+                    <path d="M54.5965 4.43866C54.5965 6.14121 54.5965 7.85796 54.5965 9.58889C54.5965 11.2915 54.5965 13.0082 54.5965 14.7391C54.5965 16.4417 54.5965 18.1584 54.5965 19.8894C54.5965 21.7054 54.5965 23.5215 54.5965 25.3376C54.5965 27.1536 54.5965 28.9839 54.5965 30.8283H39.8694C39.8694 28.0191 39.8694 25.2099 39.8694 22.4006C39.8694 19.5914 39.8694 16.7822 39.8694 13.973C39.8694 12.3839 39.8694 10.7949 39.8694 9.20582C39.8694 7.61676 39.8694 6.02771 39.8694 4.43866H54.5965ZM54.554 20.6981L56.8524 9.24838C57.1078 8.02821 57.6044 7.02087 58.3422 6.22634C59.1083 5.40344 60.0021 4.77917 61.0237 4.35353C62.0452 3.92789 63.0951 3.6725 64.1734 3.58737C65.2517 3.47387 66.2449 3.51643 67.1529 3.71507C68.0609 3.88532 68.7845 4.18327 69.3237 4.60891L66.0888 20.4427C65.2659 19.7617 64.2585 19.2935 63.0667 19.0381C61.9033 18.7827 60.7257 18.6976 59.5339 18.7827C58.3422 18.8395 57.2922 19.0381 56.3842 19.3786C55.4762 19.7191 54.8661 20.1589 54.554 20.6981Z" fill="white"/>
+                    <path d="M87.6748 32.1052C85.9155 32.1052 84.2129 31.9775 82.5671 31.7221C80.9213 31.4668 79.389 31.0837 77.9702 30.5729C76.5514 30.0338 75.2603 29.3669 74.0969 28.5724C72.9335 27.7779 71.9403 26.8557 71.1174 25.8058C70.2945 24.7275 69.6561 23.5215 69.2021 22.1878C68.748 20.8258 68.521 19.3218 68.521 17.676C68.521 15.7465 68.8332 14.0155 69.4574 12.4832C70.1101 10.9226 71.0181 9.56052 72.1815 8.3971C73.733 7.23369 74.7637 6.2689 76.3528 5.50275C77.9418 4.70823 79.687 4.12652 81.5882 3.75763C83.5177 3.36037 85.5466 3.16174 87.6748 3.16174C90.3421 3.16174 92.8251 3.47387 95.1235 4.09814C97.4503 4.69404 99.4792 5.60207 101.21 6.82224C102.969 8.01403 104.346 9.51795 105.339 11.334C106.332 13.1501 106.829 15.2641 106.829 17.676C106.829 20.088 106.332 22.202 105.339 24.0181C104.346 25.8058 102.969 27.3097 101.21 28.5299C99.4792 29.7216 97.4503 30.6155 95.1235 31.2114C92.8251 31.8073 90.3421 32.1052 87.6748 32.1052ZM87.7174 20.8258C89.4767 20.8258 90.7252 20.4853 91.463 19.8042C92.2008 19.1232 92.5697 18.3854 92.5697 17.5909C92.5697 17.222 92.4845 16.8531 92.3143 16.4843C92.144 16.1154 91.8745 15.7749 91.5056 15.4627C91.1367 15.1506 90.6401 14.9094 90.0158 14.7391C89.3916 14.5405 88.6254 14.4412 87.7174 14.4412C86.8093 14.4412 86.029 14.5405 85.3764 14.7391C84.7521 14.9094 84.2413 15.1506 83.844 15.4627C83.4752 15.7749 83.2056 16.1154 83.0353 16.4843C82.8651 16.8531 82.78 17.2362 82.78 17.6335C82.78 18.0307 82.8651 18.428 83.0353 18.8253C83.2056 19.1942 83.4893 19.5347 83.8866 19.8468C84.2839 20.1306 84.7946 20.3718 85.4189 20.5704C86.0432 20.7406 86.8093 20.8258 87.7174 20.8258Z" fill="white"/>
+                    <path d="M141.841 4.43866C141.841 6.33984 141.841 8.25522 141.841 10.1848C141.841 12.1144 141.841 14.0439 141.841 15.9735C141.841 17.6193 141.841 19.2793 141.841 20.9535C141.841 22.5993 141.841 24.2451 141.841 25.8909C141.841 27.5367 141.841 29.1825 141.841 30.8283H127.114C127.114 29.6365 127.114 28.4305 127.114 27.2104C127.114 25.9902 127.114 24.77 127.114 23.5499C127.114 22.3013 127.114 21.0953 127.114 19.9319C127.114 17.293 127.114 14.7108 127.114 12.1853C127.114 9.63146 127.114 7.04924 127.114 4.43866H141.841ZM122.602 4.43866C122.602 5.94258 122.602 7.46069 122.602 8.993C122.602 10.4969 122.602 12.0009 122.602 13.5048C122.602 15.0087 122.602 16.5268 122.602 18.0591C122.602 18.6834 122.702 19.1942 122.9 19.5914C123.127 19.9603 123.411 20.2299 123.752 20.4001C124.12 20.542 124.503 20.613 124.901 20.613C125.298 20.613 125.695 20.542 126.093 20.4001C126.518 20.2583 126.859 20.088 127.114 19.8894L123.709 30.4027C122.914 30.7999 121.935 31.1263 120.772 31.3816C119.637 31.637 118.445 31.7647 117.197 31.7647C116.062 31.7647 114.941 31.6228 113.834 31.3391C112.727 31.0837 111.72 30.6439 110.812 30.0196C109.932 29.3953 109.223 28.5724 108.684 27.5509C108.145 26.5293 107.875 25.2524 107.875 23.7201C107.875 21.6771 107.875 19.634 107.875 17.5909C107.875 15.5478 107.875 13.5048 107.875 11.4617C107.875 10.2983 107.875 9.13488 107.875 7.97146C107.875 6.77967 107.875 5.60207 107.875 4.43866H122.602Z" fill="white"/>
+                    <path d="M157.997 16.016C158.337 14.7108 158.663 13.4196 158.976 12.1427C159.316 10.8658 159.642 9.58889 159.955 8.31197C160.295 7.00668 160.621 5.71557 160.934 4.43866H169.234V16.016H157.997ZM143.397 19.7191C143.397 17.2788 143.397 14.7108 143.397 12.015C143.397 9.31932 143.397 6.76548 143.397 4.35353L157.954 0.863281C157.954 2.2537 157.954 3.6725 157.954 5.11968C157.954 6.56685 157.954 8.01403 157.954 9.4612C157.954 10.5111 157.954 11.561 157.954 12.6109C157.954 13.6608 157.954 14.6966 157.954 15.7181C157.954 15.7465 157.954 15.7607 157.954 15.7607C157.954 15.7607 157.954 15.7749 157.954 15.8032C157.954 16.3424 158.068 16.8106 158.295 17.2078C158.55 17.6051 158.891 17.9456 159.316 18.2294C159.77 18.4848 160.295 18.6834 160.891 18.8253C161.487 18.9671 162.154 19.0381 162.892 19.0381C163.714 19.0381 164.552 18.9104 165.403 18.655C166.254 18.3996 167.02 18.0449 167.701 17.5909C168.411 17.1369 168.921 16.6119 169.234 16.016V28.9555C168.013 29.9203 166.439 30.6297 164.509 31.0837C162.579 31.5661 160.65 31.8073 158.72 31.8073C155.798 31.8073 153.173 31.3391 150.846 30.4027C148.547 29.4379 146.731 28.0616 145.398 26.274C144.064 24.4579 143.397 22.273 143.397 19.7191Z" fill="white"/>
+                    <path d="M189.54 21.2089C191.044 21.2089 192.207 20.9393 193.03 20.4001C193.853 19.861 194.279 19.1232 194.307 18.1868L207.459 22.4858C206.949 24.2735 205.856 25.9051 204.182 27.3806C202.536 28.8278 200.451 29.977 197.925 30.8283C195.4 31.6796 192.576 32.1052 189.455 32.1052C186.788 32.1052 184.29 31.8073 181.964 31.2114C179.665 30.6155 177.636 29.7216 175.877 28.5299C174.146 27.3097 172.784 25.7916 171.791 23.9755C170.798 22.1594 170.301 20.0454 170.301 17.6335C170.301 15.2215 170.798 13.1075 171.791 11.2915C172.784 9.47539 174.146 7.97146 175.877 6.77967C177.636 5.5595 179.679 4.65147 182.006 4.05558C184.333 3.45968 186.816 3.16174 189.455 3.16174C192.151 3.16174 194.619 3.45968 196.861 4.05558C199.131 4.65147 201.075 5.57369 202.692 6.82224C204.338 8.0424 205.601 9.60308 206.48 11.5043C207.388 13.3771 207.842 15.6046 207.842 18.1868H184.645C184.645 18.1868 184.631 18.1868 184.603 18.1868C184.603 18.1868 184.603 18.201 184.603 18.2294C184.603 18.655 184.716 19.0523 184.943 19.4212C185.17 19.7901 185.482 20.1164 185.88 20.4001C186.305 20.6555 186.816 20.8542 187.412 20.996C188.036 21.1379 188.745 21.2089 189.54 21.2089ZM189.455 13.9304C188.064 13.9304 186.915 14.1858 186.007 14.6966C185.099 15.179 184.645 15.8742 184.645 16.7822C184.645 16.8106 184.645 16.839 184.645 16.8673C184.674 16.8673 184.688 16.8673 184.688 16.8673H194.179C194.208 16.8673 194.222 16.8673 194.222 16.8673C194.222 16.839 194.222 16.8106 194.222 16.7822C184.222 16.3282 194.094 15.9309 193.839 15.5904C193.612 15.2215 193.286 14.9236 192.86 14.6966C192.434 14.4412 191.924 14.2567 191.328 14.1432C190.76 14.0014 190.136 13.9304 189.455 13.9304Z" fill="white"/>
+                </svg>
+            </div>
+            <a href="https://dev-whitecrow.github.io/groute-contact/groute_landing.html?utm_source=header&utm_medium=share&utm_campaign=share_marketing&utm_content=promo_reddit_nepal" class="header-app-link">Get the app</a>
+        </div>
+    </div>
+    
+    <div class="page-title">
+        <div class="page-title-content">
+            <h1 class="title">Hi I'm WHITE CROW</h1>
+            <p class="subtitle">Check out my journey below!</p>
+        </div>
+    </div>
+    
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+    
+    <div class="content-section">
+        <div class="container">
+            <div class="journey-grid">
+                        <div class="moment-card" data-moment-index="0">
+            <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Frep%2F081540tv5ffcywmsux.jpg?alt=media&token=6c1d5310-0a89-43fb-815e-5e5e263d7e7b" alt="Journey moment 1" class="moment-image">
+            <div class="moment-content">
+                <div class="moment-number">1</div>
+                <div class="moment-info">
+                    <div class="moment-location-name">Loading location...</div>
+                    <div class="moment-time">Dec 2, 2024 08:15</div>
+                    <div class="moment-memo">How did they even get that up here?</div>
+                    <a href="https://www.google.com/maps?q=28.6191111,84.15345589972223" class="moment-location" target="_blank">Pin to Google Maps</a>
+                </div>
+            </div>
+        </div>
+              <div class="moment-card" data-moment-index="1">
+            <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Frep%2F102053tv5fftgjsgqm.jpg?alt=media&token=bab500f3-e0cb-48e9-bf53-88edd7b3c8b1" alt="Journey moment 2" class="moment-image">
+            <div class="moment-content">
+                <div class="moment-number">2</div>
+                <div class="moment-info">
+                    <div class="moment-location-name">Loading location...</div>
+                    <div class="moment-time">Dec 2, 2024 10:20</div>
+                    <div class="moment-memo">Stopped for altitude meds. 3700m </div>
+                    <a href="https://www.google.com/maps?q=28.640946599722223,84.13763319972223" class="moment-location" target="_blank">Pin to Google Maps</a>
+                </div>
+            </div>
+        </div>
+              <div class="moment-card" data-moment-index="2">
+            <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Frep%2F104510tv5ffqw0p4e3.jpg?alt=media&token=573a2325-7328-4be8-8af2-f6a6cf2c2078" alt="Journey moment 3" class="moment-image">
+            <div class="moment-content">
+                <div class="moment-number">3</div>
+                <div class="moment-info">
+                    <div class="moment-location-name">Loading location...</div>
+                    <div class="moment-time">Dec 2, 2024 10:45</div>
+                    <div class="moment-memo">Mind-blowing mountain views 🏔</div>
+                    <a href="https://www.google.com/maps?q=28.6441176,84.13085929972222" class="moment-location" target="_blank">Pin to Google Maps</a>
+                </div>
+            </div>
+        </div>
+              <div class="moment-card" data-moment-index="3">
+            <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Frep%2F115533tv5fcyer6wx1.jpg?alt=media&token=da0f2c5c-7eae-4501-909f-11863b180513" alt="Journey moment 4" class="moment-image">
+            <div class="moment-content">
+                <div class="moment-number">4</div>
+                <div class="moment-info">
+                    <div class="moment-location-name">Loading location...</div>
+                    <div class="moment-time">Dec 2, 2024 11:55</div>
+                    <div class="moment-memo">Running on fumes right now</div>
+                    <a href="https://www.google.com/maps?q=28.6453837,84.10492179972222" class="moment-location" target="_blank">Pin to Google Maps</a>
+                </div>
+            </div>
+        </div>
+              <div class="moment-card" data-moment-index="4">
+            <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Frep%2F123722tv5fcyg7zvw3.jpg?alt=media&token=153180c4-c20c-4857-949e-7d51f61cc559" alt="Journey moment 5" class="moment-image">
+            <div class="moment-content">
+                <div class="moment-number">5</div>
+                <div class="moment-info">
+                    <div class="moment-location-name">Loading location...</div>
+                    <div class="moment-time">Dec 2, 2024 12:37</div>
+                    <div class="moment-memo">Last decent coffee for miles ☕️</div>
+                    <a href="https://www.google.com/maps?q=28.64615069972222,84.10514599999999" class="moment-location" target="_blank">Pin to Google Maps</a>
+                </div>
+            </div>
+        </div>
+              <div class="moment-card" data-moment-index="5">
+            <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Frep%2F143118tv5fcre3dq88.jpg?alt=media&token=6313cbbc-851c-49e0-9701-679427430b22" alt="Journey moment 6" class="moment-image">
+            <div class="moment-content">
+                <div class="moment-number">6</div>
+                <div class="moment-info">
+                    <div class="moment-location-name">Loading location...</div>
+                    <div class="moment-time">Dec 2, 2024 14:31</div>
+                    <div class="moment-memo">If you see this, you're on track</div>
+                    <a href="https://www.google.com/maps?q=28.649889599999998,84.0829298" class="moment-location" target="_blank">Pin to Google Maps</a>
+                </div>
+            </div>
+        </div>
+              <div class="moment-card" data-moment-index="6">
+            <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Frep%2F150228tv5fbzrgux63.jpg?alt=media&token=8257f723-faca-4f89-b8fa-82a6ea9ca04e" alt="Journey moment 7" class="moment-image">
+            <div class="moment-content">
+                <div class="moment-number">7</div>
+                <div class="moment-info">
+                    <div class="moment-location-name">Loading location...</div>
+                    <div class="moment-time">Dec 2, 2024 15:02</div>
+                    <div class="moment-memo">Braka! Finally made it 😅🫨</div>
+                    <a href="https://www.google.com/maps?q=28.648906799722223,84.06723569972222" class="moment-location" target="_blank">Pin to Google Maps</a>
+                </div>
+            </div>
+        </div>
+      
+            </div>
+            
+            <div class="bottom-section">
+                <div class="copyright">Made with Groute by WHITE CROW</div>
+                <a href="https://dev-whitecrow.github.io/groute-contact/groute_landing.html?utm_source=read_all&utm_medium=share&utm_campaign=share_marketing&utm_content=promo_reddit_nepal" class="bottom-app-link">Get the app</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            initScrollObserver();
+            loadLocationNames();
+        });
+        
+        let map;
+        let markers = [];
+        let polyline;
+        
+        function initMap() {
+            const center = { lat: 28.642072299880954, lng: 84.11174024265873 };
+            const bounds = [[28.6191111, 84.06723569972222], [28.675072009090904, 84.15345589972223]];
+            
+            map = L.map('map');
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // 지도 범위 설정 - 모든 모멘트를 보여줄 수 있는 동적 줌 레벨
+            if (bounds) {
+                const leafletBounds = L.latLngBounds(bounds);
+                map.fitBounds(leafletBounds, {
+                    padding: [30, 30]
+                });
+            } else {
+                const center = { lat: 28.642072299880954, lng: 84.11174024265873 };
+                map.setView([center.lat, center.lng], 15);
+            }
+            
+                    const customIcon0 = L.divIcon({
+          html: `        <div class="custom-marker" data-moment-index="0">
+          <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Fgrid%2F081540tv5ffcywmsux.jpg?alt=media&token=c83b9430-f197-4027-ab09-c3f941097e52" class="marker-photo" alt="Moment 1">
+          <div class="marker-triangle"></div>
+          <div class="marker-circle">1</div>
+        </div>
+      `,
+          className: 'custom-marker-container',
+          iconSize: [50, 82],
+          iconAnchor: [25, 70]
+        });
+        
+        const marker0 = L.marker([28.6191111, 84.15345589972223], {
+          icon: customIcon0,
+          zIndexOffset: 1000
+        }).addTo(map);
+        
+        markers.push(marker0);
+      
+        const customIcon1 = L.divIcon({
+          html: `        <div class="custom-marker" data-moment-index="1">
+          <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Fgrid%2F102053tv5fftgjsgqm.jpg?alt=media&token=9bbf57d2-26cf-47f5-94f1-79d948f3deed" class="marker-photo" alt="Moment 2">
+          <div class="marker-triangle"></div>
+          <div class="marker-circle">2</div>
+        </div>
+      `,
+          className: 'custom-marker-container',
+          iconSize: [50, 82],
+          iconAnchor: [25, 70]
+        });
+        
+        const marker1 = L.marker([28.640946599722223, 84.13763319972223], {
+          icon: customIcon1,
+          zIndexOffset: 999
+        }).addTo(map);
+        
+        markers.push(marker1);
+      
+        const customIcon2 = L.divIcon({
+          html: `        <div class="custom-marker" data-moment-index="2">
+          <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Fgrid%2F104510tv5ffqw0p4e3.jpg?alt=media&token=653a087e-4e22-443b-93fb-7b35f993c5a6" class="marker-photo" alt="Moment 3">
+          <div class="marker-triangle"></div>
+          <div class="marker-circle">3</div>
+        </div>
+      `,
+          className: 'custom-marker-container',
+          iconSize: [50, 82],
+          iconAnchor: [25, 70]
+        });
+        
+        const marker2 = L.marker([28.6441176, 84.13085929972222], {
+          icon: customIcon2,
+          zIndexOffset: 998
+        }).addTo(map);
+        
+        markers.push(marker2);
+      
+        const customIcon3 = L.divIcon({
+          html: `        <div class="custom-marker" data-moment-index="3">
+          <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Fgrid%2F115533tv5fcyer6wx1.jpg?alt=media&token=632ac366-8866-4dc8-9cfd-4e0f355587f3" class="marker-photo" alt="Moment 4">
+          <div class="marker-triangle"></div>
+          <div class="marker-circle">4</div>
+        </div>
+      `,
+          className: 'custom-marker-container',
+          iconSize: [50, 82],
+          iconAnchor: [25, 70]
+        });
+        
+        const marker3 = L.marker([28.6453837, 84.10492179972222], {
+          icon: customIcon3,
+          zIndexOffset: 997
+        }).addTo(map);
+        
+        markers.push(marker3);
+      
+        const customIcon4 = L.divIcon({
+          html: `        <div class="custom-marker" data-moment-index="4">
+          <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Fgrid%2F123722tv5fcyg7zvw3.jpg?alt=media&token=5f30f2ec-9154-49e2-9896-60a50a91110f" class="marker-photo" alt="Moment 5">
+          <div class="marker-triangle"></div>
+          <div class="marker-circle">5</div>
+        </div>
+      `,
+          className: 'custom-marker-container',
+          iconSize: [50, 82],
+          iconAnchor: [25, 70]
+        });
+        
+        const marker4 = L.marker([28.64615069972222, 84.10514599999999], {
+          icon: customIcon4,
+          zIndexOffset: 996
+        }).addTo(map);
+        
+        markers.push(marker4);
+      
+        const customIcon5 = L.divIcon({
+          html: `        <div class="custom-marker" data-moment-index="5">
+          <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Fgrid%2F143118tv5fcre3dq88.jpg?alt=media&token=7e273181-155f-4f4a-a379-bd4f5d50fabb" class="marker-photo" alt="Moment 6">
+          <div class="marker-triangle"></div>
+          <div class="marker-circle">6</div>
+        </div>
+      `,
+          className: 'custom-marker-container',
+          iconSize: [50, 82],
+          iconAnchor: [25, 70]
+        });
+        
+        const marker5 = L.marker([28.649889599999998, 84.0829298], {
+          icon: customIcon5,
+          zIndexOffset: 995
+        }).addTo(map);
+        
+        markers.push(marker5);
+      
+        const customIcon6 = L.divIcon({
+          html: `        <div class="custom-marker" data-moment-index="6">
+          <img src="https://firebasestorage.googleapis.com/v0/b/groutefb.firebasestorage.app/o/users%2FbZQTnDLR7ndVgwBsJ8ekoVm7wjC2%2Fgrid%2F150228tv5fbzrgux63.jpg?alt=media&token=bca6177a-8250-4a24-8021-66b290327dbc" class="marker-photo" alt="Moment 7">
+          <div class="marker-triangle"></div>
+          <div class="marker-circle">7</div>
+        </div>
+      `,
+          className: 'custom-marker-container',
+          iconSize: [50, 82],
+          iconAnchor: [25, 70]
+        });
+        
+        const marker6 = L.marker([28.648906799722223, 84.06723569972222], {
+          icon: customIcon6,
+          zIndexOffset: 994
+        }).addTo(map);
+        
+        markers.push(marker6);
+      
+const pathCoords = [
+  [28.6191111, 84.15345589972223]
+,
+  [28.640946599722223, 84.13763319972223]
+,
+  [28.6441176, 84.13085929972222]
+,
+  [28.6453837, 84.10492179972222]
+,
+  [28.64615069972222, 84.10514599999999]
+,
+  [28.649889599999998, 84.0829298]
+,
+  [28.648906799722223, 84.06723569972222]
+];
+        polyline = L.polyline(pathCoords, {
+          color: '#000000',
+          weight: 4,
+          opacity: 1.0
+        }).addTo(map);
+      
+
+        }
+        
+        function highlightMarker(momentIndex) {
+            // 모든 마커 하이라이트 해제
+            markers.forEach((marker, index) => {
+                const markerElement = marker.getElement();
+                if (markerElement) {
+                    const customMarker = markerElement.querySelector('.custom-marker');
+                    if (customMarker) {
+                        if (index === momentIndex) {
+                            customMarker.classList.add('highlighted');
+                            marker.setZIndexOffset(2000);
+                        } else {
+                            customMarker.classList.remove('highlighted');
+                            marker.setZIndexOffset(1000 - index);
+                        }
+                    }
+                }
+            });
+            
+            // 카드 하이라이트
+            document.querySelectorAll('.moment-card').forEach((card, index) => {
+                card.classList.toggle('highlight', index === momentIndex);
+            });
+        }
+        
+        function initScrollObserver() {
+            const options = {
+                root: null,
+                rootMargin: '-50% 0px -50% 0px',
+                threshold: 0
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const momentIndex = parseInt(entry.target.dataset.momentIndex);
+                        highlightMarker(momentIndex);
+                    }
+                });
+            }, options);
+            
+            document.querySelectorAll('.moment-card').forEach((card, index) => {
+                card.dataset.momentIndex = index;
+                observer.observe(card);
+            });
+        }
+        
+        async function loadLocationNames() {
+            const moments = [
+  { lat: 28.6191111, lng: 84.15345589972223 }
+,
+  { lat: 28.640946599722223, lng: 84.13763319972223 }
+,
+  { lat: 28.6441176, lng: 84.13085929972222 }
+,
+  { lat: 28.6453837, lng: 84.10492179972222 }
+,
+  { lat: 28.64615069972222, lng: 84.10514599999999 }
+,
+  { lat: 28.649889599999998, lng: 84.0829298 }
+,
+  { lat: 28.648906799722223, lng: 84.06723569972222 }
+]
+;
+            
+            for (let i = 0; i < moments.length; i++) {
+                try {
+                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${moments[i].lat}&lon=${moments[i].lng}&zoom=10&addressdetails=1`);
+                    const data = await response.json();
+                    
+                    if (data && data.address) {
+                        const state = data.address.state || data.address.province || '';
+                        const country = data.address.country || '';
+                        const locationText = [state, country].filter(Boolean).join(', ');
+                        
+                        const locationElement = document.querySelector(`[data-moment-index="${i}"] .moment-location-name`);
+                        if (locationElement && locationText) {
+                            locationElement.textContent = locationText;
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Failed to load location for moment', i, error);
+                }
+                
+                // API 호출 간격 조절 (1초)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
