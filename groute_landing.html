@@ -21,21 +21,66 @@
         const utmMedium = urlParams.get('utm_medium') || 'none';
         const utmCampaign = urlParams.get('utm_campaign') || 'none';
         
+        // 플랫폼 감지 함수
+        function detectPlatform() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const platform = navigator.platform.toLowerCase();
+            
+            // iOS 감지 (iPhone, iPad)
+            if (/iphone|ipad|ipod/.test(userAgent) || (platform === 'macintel' && navigator.maxTouchPoints > 1)) {
+                return 'ios';
+            }
+            
+            // macOS 감지 (데스크톱 Safari, Chrome 등)
+            if (/mac/.test(platform) || /macintosh/.test(userAgent)) {
+                return 'macos';
+            }
+            
+            // Android 감지
+            if (/android/.test(userAgent)) {
+                return 'android';
+            }
+            
+            // 기타 플랫폼 (Windows, Linux 등)
+            return 'other';
+        }
+        
+        // 플랫폼별 앱 스토어 링크 반환
+        function getAppStoreLink(platform) {
+            switch(platform) {
+                case 'ios':
+                case 'macos':
+                    return 'https://apps.apple.com/kr/app/groute/id6744373820?l=en-GB';
+                case 'android':
+                case 'other':
+                default:
+                    return 'https://play.google.com/store/apps/details?id=com.whitecrow.groute';
+            }
+        }
+        
+        // 현재 플랫폼 감지
+        const currentPlatform = detectPlatform();
+        const appStoreLink = getAppStoreLink(currentPlatform);
+        
         // 페이지 로드 이벤트 추적
         gtag('event', 'page_view', {
             'custom_parameter_1': utmSource,
             'custom_parameter_2': utmMedium,
-            'custom_parameter_3': utmCampaign
+            'custom_parameter_3': utmCampaign,
+            'platform': currentPlatform
         });
         
         // 앱스토어 클릭 이벤트 추적
         function trackAppStoreClick() {
+            const storeType = (currentPlatform === 'ios' || currentPlatform === 'macos') ? 'app_store' : 'play_store';
             gtag('event', 'app_store_click', {
                 'event_category': 'app_download',
                 'event_label': 'groute_app',
                 'utm_source': utmSource,
                 'utm_medium': utmMedium,
-                'utm_campaign': utmCampaign
+                'utm_campaign': utmCampaign,
+                'platform': currentPlatform,
+                'store_type': storeType
             });
         }
         
@@ -59,11 +104,14 @@
         
         // 자동 리다이렉트 (5초 후)
         setTimeout(function() {
+            const storeType = (currentPlatform === 'ios' || currentPlatform === 'macos') ? 'app_store' : 'play_store';
             gtag('event', 'auto_redirect_to_appstore', {
                 'event_category': 'conversion',
-                'utm_source': utmSource
+                'utm_source': utmSource,
+                'platform': currentPlatform,
+                'store_type': storeType
             });
-            window.location.href = 'https://apps.apple.com/kr/app/groute/id6744373820?l=en-GB';
+            window.location.href = appStoreLink;
         }, 5000);
     </script>
     
@@ -235,10 +283,17 @@
         <div class="loading"></div>
         
         <div class="manual-link">
-            <a href="https://apps.apple.com/kr/app/groute/id6744373820?l=en-GB" onclick="trackAppStoreClick()">
+            <a href="#" id="downloadLink" onclick="trackAppStoreClick(); window.location.href = appStoreLink; return false;">
                 Download Now
             </a>
         </div>
+        
+        <script>
+            // 페이지 로드 후 다운로드 링크 설정
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('downloadLink').href = appStoreLink;
+            });
+        </script>
     </div>
 </body>
 </html>
