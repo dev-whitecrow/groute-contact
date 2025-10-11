@@ -1,107 +1,162 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share Expense Tracker</title>
+    <title>Share Expense</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #000000;
-            height: 100vh;
-            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 1000;
+            display: none;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .popup h2 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .popup p {
+            margin: 0 0 20px 0;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .popup button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>✅ Copied!</h2>
+        <p>The link has been copied to your clipboard. Please go to your desired messenger and paste it.</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
     <script>
-        // 운영체제 감지 함수
-        function detectOS() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            
-            // iOS 감지
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                return 'ios';
+        const TALLY_LINK = 'https://tally.so/r/wQP90A?utm_medium=referral_share';
+        
+        async function copyToClipboard() {
+            try {
+                // Modern browsers with Clipboard API
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(TALLY_LINK);
+                    showPopup();
+                } else {
+                    // Fallback for older browsers or non-HTTPS
+                    fallbackCopyTextToClipboard(TALLY_LINK);
+                }
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                // Try fallback method
+                fallbackCopyTextToClipboard(TALLY_LINK);
             }
-            
-            // Android 감지
-            if (/android/i.test(userAgent)) {
-                return 'android';
-            }
-            
-            // 기타
-            return 'others';
         }
-
-        // 네이티브 공유 함수
-        async function triggerNativeShare() {
-            const targetUrl = 'https://tally.so/r/3NGN0W?utm_medium=referral_share';
-            const shareData = {
-                title: 'Stop matching receipts to memories',
-                text: 'Let your photos do it for you. No more spreadsheets. No more anxiety. Just the journey.',
-                url: targetUrl
-            };
-
-            const os = detectOS();
+        
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
             
             try {
-                // Web Share API 지원 확인 (주로 모바일)
-                if (navigator.share && (os === 'ios' || os === 'android')) {
-                    await navigator.share(shareData);
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showPopup();
                 } else {
-                    // Web Share API 미지원시 fallback
-                    handleFallbackShare(targetUrl, os);
+                    console.error('Fallback: Copying text command was unsuccessful');
+                    showErrorPopup();
                 }
-            } catch (error) {
-                console.log('Share cancelled or failed:', error);
-                // 공유 취소 또는 실패시 원본 링크로 리다이렉트
-                window.location.href = targetUrl;
-            }
-        }
-
-        // Fallback 공유 처리
-        function handleFallbackShare(url, os) {
-            if (os === 'ios') {
-                // iOS Safari에서 Web Share API 미지원시
-                if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
-                    // Safari 공유 시트 트리거 시도
-                    const shareUrl = `data:text/plain;charset=utf-8,${encodeURIComponent('Stop matching receipts to memories: ' + url)}`;
-                    const link = document.createElement('a');
-                    link.href = shareUrl;
-                    link.download = 'share.txt';
-                    link.click();
-                }
-            } else if (os === 'android') {
-                // Android Chrome에서 Web Share API 미지원시
-                if ('share' in navigator) {
-                    navigator.share({
-                        title: 'Stop matching receipts to memories',
-                        url: url
-                    });
-                } else {
-                    // Intent URL 사용
-                    const intentUrl = `intent://send?text=${encodeURIComponent('Stop matching receipts to memories: ' + url)}#Intent;scheme=https;package=com.android.chrome;end`;
-                    window.location.href = intentUrl;
-                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+                showErrorPopup();
             }
             
-            // 모든 fallback 실패시 원본 링크로 이동
-            setTimeout(() => {
-                window.location.href = url;
-            }, 1000);
+            document.body.removeChild(textArea);
         }
-
-        // 페이지 로드 즉시 공유 트리거
+        
+        function showPopup() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }
+        
+        function showErrorPopup() {
+            const popup = document.getElementById('popup');
+            popup.innerHTML = `
+                <h2>⚠️ Copy Failed</h2>
+                <p>Please manually copy this link:<br><br><strong>${TALLY_LINK}</strong></p>
+                <button onclick="closePopup()">OK</button>
+            `;
+            showPopup();
+        }
+        
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+        
+        // Execute immediately when page loads
         window.addEventListener('load', function() {
-            // 약간의 지연을 두어 페이지가 완전히 로드된 후 실행
-            setTimeout(triggerNativeShare, 100);
+            // Small delay to ensure page is fully loaded
+            setTimeout(copyToClipboard, 100);
         });
-
-        // DOMContentLoaded 이벤트로도 백업 실행
+        
+        // Also execute on DOMContentLoaded as backup
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(triggerNativeShare, 100);
+            setTimeout(copyToClipboard, 100);
         });
+        
+        // Close popup when clicking overlay
+        document.getElementById('overlay').addEventListener('click', closePopup);
     </script>
 </body>
 </html>
