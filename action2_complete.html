@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action 2 Complete | Whitecrow</title>
+    <!-- Pretendard Font CDN -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000000;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .container {
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+            /* Increased max-width for larger content */
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            /* Increased size (One step up from 1.5rem) */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            /* More breathing room */
+            color: #FFFFFF;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.2rem;
+            /* Slightly larger for balance */
+            font-weight: 700;
+            line-height: 1.6;
+            color: #E5E5E5;
+            margin-bottom: 2rem;
+        }
+
+        .fire-gif {
+            width: 320px;
+            /* 4x larger (80px * 4) */
+            height: auto;
+            margin-bottom: 2rem;
+            /* Increased spacing */
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMNST297BY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Capture UTM parameters for source tracking (e.g., maily)
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source');
+      const utmMedium = urlParams.get('utm_medium');
+
+      gtag('config', 'G-PMNST297BY', {
+        'page_title': 'Action 2 Complete',
+        'campaign_source': utmSource,
+        'campaign_medium': utmMedium
+      });
+
+      // Custom Event: Micro Action Complete (Action 2)
+      // Distinct label 'content_read_complete_action2' differentiates this from action1
+      gtag('event', 'micro_action_complete', {
+          'event_category': 'engagement',
+          'event_label': 'content_read_complete_action2',
+          'source': utmSource || 'direct'
+      });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Reusing fire.gif for now. If you have a different asset for Action 2, please replace it. -->
+        <img src="fire.gif" alt="Fire" class="fire-gif">
+        <h1>Action 2 달성!</h1>
+        <p>Action 1에 이어<br>Action 2까지 완료하셨군요.<br>정말 대단합니다!</p>
+    </div>
+</body>
+
+</html>
