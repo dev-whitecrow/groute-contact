@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action 5 Complete | Whitecrow</title>
+    <!-- Pretendard Font CDN -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* White background for Snowman/Dream theme */
+            background-color: #FFFFFF;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            color: #000000;
+            text-align: center;
+        }
+
+        .container {
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cool-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #000000;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 2rem;
+        }
+
+        .dream-gif {
+            width: 320px;
+            height: auto;
+            margin-bottom: 2rem;
+            /* Rounded corners for softer dream feel */
+            border-radius: 12px;
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMNST297BY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // Capture UTM parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source');
+        const utmMedium = urlParams.get('utm_medium');
+
+        gtag('config', 'G-PMNST297BY', {
+            'page_title': 'Action 5 Complete',
+            'campaign_source': utmSource,
+            'campaign_medium': utmMedium
+        });
+
+        // Custom Event: Micro Action Complete (Action 5)
+        gtag('event', 'micro_action_complete', {
+            'event_category': 'engagement',
+            'event_label': 'content_read_complete_action5',
+            'source': utmSource || 'direct'
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Optional Header Text -->
+        <div class="cool-text">Dream Big!</div>
+
+        <!-- Using winter_snowman.gif provided by user -->
+        <img src="winter_snowman.gif" alt="Dream Snowman" class="dream-gif">
+
+        <h1>Action 5 달성!</h1>
+        
+        <p>어릴 적 꿈을 떠올린 것만으로도<br>당신은 이미 성장하고 있습니다.<br>그 순수한 마음을 응원합니다! ☃️</p>
+    </div>
+</body>
+
+</html>
