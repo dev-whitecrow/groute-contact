@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             width: 100%;
             background-color: #000000;
             -webkit-tap-highlight-color: transparent;
@@ -45,7 +47,7 @@
             justify-content: center;
             padding: 16px 20px;
             /* Subtle gradient backdrop */
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 60%, rgba(0,0,0,0));
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 60%, rgba(0, 0, 0, 0));
             pointer-events: none;
         }
 
@@ -97,11 +99,31 @@
         }
     </style>
 
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '4241627099389209');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=4241627099389209&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMNST297BY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         // ─── A/B Group Assignment ───
@@ -152,7 +174,7 @@
 
             const scrollPercent = Math.round((scrollTop / docHeight) * 100);
 
-            scrollThresholds.forEach(function(threshold) {
+            scrollThresholds.forEach(function (threshold) {
                 if (scrollPercent >= threshold && !firedThresholds.has(threshold)) {
                     firedThresholds.add(threshold);
                     gtag('event', 'scroll_depth', {
@@ -161,15 +183,22 @@
                         'ab_group': abGroup,
                         'scroll_percent': threshold
                     });
+                    // Meta Pixel: 100% 스크롤 시 ViewContent
+                    if (threshold === 100) {
+                        fbq('track', 'ViewContent', {
+                            content_name: 'ACTS29 Gen2 Detail',
+                            content_category: abGroup
+                        });
+                    }
                 }
             });
         }
 
         // Throttled scroll listener
         let scrollTimeout;
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             if (scrollTimeout) return;
-            scrollTimeout = setTimeout(function() {
+            scrollTimeout = setTimeout(function () {
                 scrollTimeout = null;
                 trackScroll();
             }, 200);
@@ -188,7 +217,7 @@
         }
 
         window.addEventListener('beforeunload', sendTimeOnPage);
-        document.addEventListener('visibilitychange', function() {
+        document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'hidden') sendTimeOnPage();
         });
 
@@ -206,13 +235,20 @@
                 'destination_url': url
             });
 
-            // Small delay to ensure GA event fires
-            setTimeout(function() {
+            // Meta Pixel: Lead 이벤트
+            fbq('track', 'Lead', {
+                content_name: 'ACTS29 Gen2 Apply',
+                content_category: abGroup
+            });
+
+            // Small delay to ensure GA + Pixel events fire
+            setTimeout(function () {
                 window.location.href = url;
-            }, 250);
+            }, 300);
         }
     </script>
 </head>
+
 <body>
     <div class="page-wrapper">
         <div class="slide-container" id="slideContainer">
@@ -245,7 +281,7 @@
 
         // Render
         var container = document.getElementById('slideContainer');
-        slides.forEach(function(src, idx) {
+        slides.forEach(function (src, idx) {
             var img = document.createElement('img');
             img.src = src;
             img.alt = 'ACTS29 상세 ' + (idx + 1);
@@ -255,4 +291,5 @@
         });
     </script>
 </body>
+
 </html>
