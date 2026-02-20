@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro-mission Liked | Whitecrow</title>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000000;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .container {
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 1.2s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .heartbeat-gif {
+            width: 320px;
+            height: auto;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.2;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMNST297BY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source');
+        const utmMedium = urlParams.get('utm_medium');
+
+        gtag('config', 'G-PMNST297BY', {
+            'page_title': 'Micro-mission Liked',
+            'campaign_source': utmSource,
+            'campaign_medium': utmMedium
+        });
+
+        gtag('event', 'micro_mission_liked', {
+            'event_category': 'engagement',
+            'event_label': 'micro_mission_liked',
+            'source': utmSource || 'direct'
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <img src="heartbeat.gif" alt="Heartbeat" class="heartbeat-gif">
+
+        <h1>Micro-mission liked!🕊️</h1>
+    </div>
+</body>
+
+</html>
