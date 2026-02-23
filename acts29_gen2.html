@@ -238,11 +238,20 @@
                 ? 'https://tally.so/r/lbd4YN'
                 : 'https://tally.so/r/VL5xbM';
 
+            // Calculate current scroll percentage
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let currentScrollPercent = 0;
+            if (docHeight > 0) {
+                currentScrollPercent = Math.round((scrollTop / docHeight) * 100);
+            }
+
             gtag('event', 'cta_click', {
                 'event_category': 'acts29_gen2',
                 'event_label': 'apply_button',
                 'ab_group': abGroup,
-                'destination_url': url
+                'destination_url': url,
+                'scroll_percent': currentScrollPercent
             });
 
             // Meta Pixel: Lead 이벤트
