@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지원 완료 | ACTS29</title>
     <!-- Pretendard Font -->
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
     <style>
         * {
             margin: 0;
@@ -16,7 +18,8 @@
 
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-            background-color: #1A1A1A; /* 챠콜블랙 */
+            background-color: #1A1A1A;
+            /* 챠콜블랙 */
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
@@ -72,7 +75,7 @@
             padding: 14px 28px;
             background-color: transparent;
             color: #FFFFFF;
-            border: 1px solid #00C4B4;
+            border: 3px solid #00C4B4;
             border-radius: 8px;
             text-decoration: none;
             font-size: 16px;
@@ -86,34 +89,43 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 
     <!-- Meta Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '4241627099389209');
-    fbq('track', 'PageView');
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '4241627099389209');
+        fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=4241627099389209&ev=PageView&noscript=1"
-    /></noscript>
+            src="https://www.facebook.com/tr?id=4241627099389209&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMNST297BY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         // A/B 그룹 식별자 가져오기 (localStorage 또는 URL Param)
@@ -139,21 +151,23 @@
         });
     </script>
 </head>
+
 <body>
     <div class="container">
-        <h1><span class="accent1">신청</span>해주셔서 감사합니다!</h1>
+        <h1><span class="accent2">신청</span>해주셔서 감사합니다!</h1>
         <p class="desc">
             곧 지원서를 검토하고 적어주신 전화번호로<br>
-            <span class="accent1">인터뷰 안내 문자</span>를 보내드릴게요!
+            인터뷰 안내 <span class="accent1">문자</span>를 보내드릴게요!
         </p>
 
         <p class="slogan">
-            당신의 시작을 안전하게. <span class="accent2">ACTS29</span> 커뮤니티
+            당신의 시작을 안전하게. <span class="accent1">ACTS29</span> 커뮤니티
         </p>
 
         <a href="https://www.instagram.com/acts29community/" target="_blank" class="insta-btn">
-            acts29 커뮤니티 instagram 가기
+            ACTS29 커뮤니티 instagram 가기
         </a>
     </div>
 </body>
+
 </html>
