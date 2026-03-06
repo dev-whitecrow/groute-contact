@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACTS29 실행 성향 테스트</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #2d3748;
+            --point-color: #00c4b4;
+            --point-color-hover: #009b8e;
+            --sub-color: #f5d21f;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
+            /* Brighter gray for better contrast */
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+            /* Override Bootstrap's default dark gray */
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 15% 50%, rgba(0, 196, 180, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(245, 210, 31, 0.1), transparent 25%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 650px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            padding: 3rem;
+        }
+
+        .text-point {
+            color: var(--point-color) !important;
+        }
+
+        .text-sub {
+            color: var(--sub-color) !important;
+        }
+
+        .btn-acts {
+            background-color: var(--point-color);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 196, 180, 0.3);
+        }
+
+        .btn-acts:hover:not(:disabled) {
+            background-color: var(--point-color-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 196, 180, 0.4);
+            color: #fff;
+        }
+
+        .btn-acts:disabled {
+            background-color: #4a5568;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .form-control-acts {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+        }
+
+        .form-control-acts:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--point-color);
+            box-shadow: 0 0 0 3px rgba(0, 196, 180, 0.2);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .form-control-acts::placeholder {
+            color: #718096;
+        }
+
+        .btn-option {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 12px;
+            padding: 18px 20px;
+            border-radius: 14px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 1.05rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        .btn-option:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-option.selected {
+            background-color: rgba(0, 196, 180, 0.15);
+            color: #fff;
+            border-color: var(--point-color);
+            box-shadow: 0 0 15px rgba(0, 196, 180, 0.1) inset;
+        }
+
+        .progress {
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background-color: var(--point-color);
+            transition: width 0.4s ease;
+        }
+
+        .question-number {
+            color: var(--sub-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 35px;
+            line-height: 1.4;
+        }
+
+        .badge-type {
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            margin-bottom: 25px;
+            background-color: rgba(245, 210, 31, 0.15) !important;
+            color: var(--sub-color) !important;
+            border: 1px solid rgba(245, 210, 31, 0.3);
+            font-weight: 600;
+        }
+
+        .result-box {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-box ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .result-box li {
+            margin-bottom: 10px;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .result-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        .warning-box {
+            background: rgba(245, 210, 31, 0.05);
+            border: 1px solid rgba(245, 210, 31, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .btn-save-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-save-image:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-save-image:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container animate__animated animate__fadeIn">
+        <!-- Landing / Intro Section -->
+        <div id="intro-section" class="glass-card text-center">
+            <h5 class="text-sub font-weight-bold mb-2">ACTS29 오리엔테이션</h5>
+            <h1 class="mb-4 fw-bold" style="font-size: 2.2rem; letter-spacing: -1px;">나의 <span class="text-point">실행
+                    성향</span> 진단하기</h1>
+
+            <p class="text-muted mb-5" style="font-size: 1.1rem; line-height: 1.6;">
+                나는 아이디어가 쏟아지는 통찰력 천재일까,<br>마지막 1픽셀까지 완벽을 기하는 장인일까,<br>아니면 앞뒤 안 가리고 부딪히는 불도저일까?<br><br>
+                ACTS29 과정을 시작하기 전, 나의 <strong class="text-white">일처리 성향(MBTI)</strong>을 파악하고<br>나에게 딱 맞는 실행 전략을 확인해 보세요.
+            </p>
+
+            <div class="text-start mb-4">
+                <label for="user-name" class="form-label text-muted ms-2 mb-2">당신의 이름(닉네임)을 알려주세요</label>
+                <input type="text" id="user-name" class="form-control form-control-acts" placeholder="이름 입력 (예: 홍길동)"
+                    autocomplete="off">
+            </div>
+
+            <button id="start-btn" class="btn btn-acts mt-2">테스트 시작하기 (총 7문항)</button>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quiz-section" class="glass-card" style="display: none;">
+            <div class="progress">
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+            </div>
+            <div id="question-container" class="animate__animated animate__fadeIn">
+                <!-- Question content injected here via JS -->
+            </div>
+            <button id="next-btn" class="btn btn-acts mt-4" disabled>다음 질문</button>
+        </div>
+
+        <!-- Loading Section -->
+        <div id="loading-section" class="glass-card text-center py-5" style="display: none;">
+            <div class="spinner-border text-point mb-4" style="width: 3rem; height: 3rem;" role="status"></div>
+            <h4 id="loading-text" class="fw-bold text-white typing-cursor">결과를 로딩하고 있습니다</h4>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result-section" class="glass-card text-center" style="display: none;">
+            <h4 class="text-muted mb-3"><span id="display-name" class="text-white fw-bold">000</span> 님의 실행 유형은...</h4>
+            <div class="badge rounded-pill badge-type" id="result-badge">유형 타이틀</div>
+            <h1 id="result-title" class="fw-bold mb-4" style="color: #fff; font-size: 2.2rem;">유형 이름</h1>
+
+            <div class="result-box text-start">
+                <h5 class="fw-bold text-white mb-3"><span style="font-size: 1.2rem;">🩺</span> 성향 진단</h5>
+                <p id="result-desc" class="mb-0 text-muted" style="line-height: 1.6;"></p>
+            </div>
+
+            <div class="result-box text-start">
+                <h5 class="fw-bold mb-3" style="color: #00c4b4;"><span style="font-size: 1.2rem;">👍</span> 장점</h5>
+                <ul id="result-strengths"></ul>
+            </div>
+
+            <div class="result-box text-start">
+                <h5 class="fw-bold mb-3" style="color: #fc8181;"><span style="font-size: 1.2rem;">⚠️</span> 단점 (돌파해야 할
+                    허들)</h5>
+                <ul id="result-weaknesses"></ul>
+            </div>
+
+            <div class="warning-box text-start">
+                <h5 class="fw-bold text-sub mb-3"><span style="font-size: 1.2rem;">🚧</span> ACTS29 주의 구간 및 처방전</h5>
+                <p id="result-warning" class="fw-bold text-white mb-2"></p>
+                <p id="result-prescription" class="mb-0 text-muted" style="line-height: 1.6;"></p>
+            </div>
+
+            <button id="save-image-btn" class="btn-save-image mt-5" onclick="saveResultAsImage()">📸 결과 이미지
+                저장하기</button>
+            <button onclick="location.reload()"
+                class="btn btn-acts mt-3 bg-transparent border border-secondary text-white shadow-none hover-bg-light">테스트
+                다시하기</button>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 💡 [ACTS29 DB 연동 설정]
+        // 구글 앱스 스크립트(Google Apps Script)에서 배포된 웹 앱 URL을 아래에 붙여넣으세요.
+        // 비워둘 경우, DB에는 전송되지 않고 화면 결과만 표시됩니다.
+        // ==========================================
+        const GOOGLE_SHEET_WEBHOOK_URL = "";
+
+        const questions = [
+            {
+                q: "새로운 프로젝트 아이디어가 떠올랐을 때, 나의 뇌 구조는?",
+                options: [
+                    { text: "\"이것도 좋고 저것도 좋은데?\" 아이디어가 꼬리를 물고 유니콘 기업 3개를 세운다.", type: "A" },
+                    { text: "\"이게 진짜 작동하려면 어떻게 해야 하지?\" 디테일한 구조와 디자인부터 꼼꼼하게 따진다.", type: "B" },
+                    { text: "\"일단 만들어 보자!\" 머리로 고민하기 전에 이미 손이 무언가를 세팅하고 있다.", type: "C" }
+                ]
+            },
+            {
+                q: "내가 만든 결과물 초안을 남에게 보여줘야 할 때, 나의 심리 상태는?",
+                options: [
+                    { text: "말로는 기깔나게 설명할 자신이 넘치는데, 막상 문서나 화면으로 정리된 실체가 없다.", type: "A" },
+                    { text: "\"아직 덜 예뻐서...\" 스스로 만족하는 완벽한 상태가 될 때까지 꽁꽁 숨겨둔다.", type: "B" },
+                    { text: "\"일단 한 번 써봐!\" 부끄러움 0%. 냅다 링크부터 던지고 반응을 살핀다.", type: "C" }
+                ]
+            },
+            {
+                q: "프로젝트를 진행하다가 진도가 탁! 막히는 가장 큰 이유는?",
+                options: [
+                    { text: "아이디어가 자꾸 바뀌거나, 너무 많아서 딱 하나를 단호하게 고르지 못해서.", type: "A" },
+                    { text: "자꾸 욕심이 나서 기능이나 디자인을 하나둘 추가하다가 결국 데드라인을 놓쳐서.", type: "B" },
+                    { text: "일단 다 만들고 배포하긴 했는데, \"그래서 이제 무슨 데이터를 봐야 하지?\" 목적을 잃어서.", type: "C" }
+                ]
+            },
+            {
+                q: "누군가 내 프로젝트에 날카로운 피드백을 던졌을 때, 나의 반응은?",
+                options: [
+                    { text: "\"오! 그것도 좋은데요?\" 귀가 얇아져서 기획을 통째로 엎어버리는 상상을 한다.", type: "A" },
+                    { text: "\"아, 그 부분 여백이 좀 안 맞긴 했죠...\" 일일이 내 디자인 디테일을 방어하고 해명한다.", type: "B" },
+                    { text: "\"오케이, 접수!\" 피드백의 진짜 의도를 깊이 묻기보다 일단 냅다 고치고 본다.", type: "C" }
+                ]
+            },
+            {
+                q: "팀 회의나 모임에서 내가 자주 맡는 포지션은?",
+                options: [
+                    { text: "\"이런 기능은 어때요?\" 끊임없이 새로운 시각과 아이디어를 던지는 '발산 담당'", type: "A" },
+                    { text: "\"잠깐, 그거 기술적으로 구현하려면 복잡한데...\" 꼼꼼히 따져보는 '분석 담당'", type: "B" },
+                    { text: "\"자자, 그래서 당장 오늘 뭐부터 할까요?\" 행동을 재촉하는 '실행/추진 담당'", type: "C" }
+                ]
+            },
+            {
+                q: "내가 생각하기에 가장 견디기 힘든 협업 상황은?",
+                options: [
+                    { text: "정해진 매뉴얼대로만 기계적으로 일해야 하는 답답한 상황", type: "A" },
+                    { text: "디테일을 무시하고 대충 엉성하게 결과물을 마무리 지으려는 상황", type: "B" },
+                    { text: "회의만 계속하고 아무도 실제로 총대를 매고 움직이지 않는 상황", type: "C" }
+                ]
+            },
+            {
+                q: "프로젝트 마감(배포) 하루 전, 나의 모습은 주로 어떠한가?",
+                options: [
+                    { text: "\"아... 이걸로 나가는 게 진짜 최선일까?\" 여전히 기획 방향성에 대해 고뇌한다.", type: "A" },
+                    { text: "\"폰트 크기가..., 버튼 색깔이...\" 밤을 새워서라도 나만 아는 마지막 1픽셀을 다듬는다.", type: "B" },
+                    { text: "\"배포 끝! 다음 프로젝트 뭐 하지?\" 이미 진작에 올려두고 다음 스텝을 밟고 있다.", type: "C" }
+                ]
+            }
+        ];
+
+        const resultsData = {
+            "A": {
+                badge: "Week 1 무한루프 [1-1-2-3-4] 타입",
+                title: "☁️ 비전 스케치 기획자",
+                desc: "당신은 타겟 고객이 무슨 고통을 겪는지 깊이 공감하고 인터뷰하는 데 특화된 아이디어 뱅크이자 심리 상담가입니다.",
+                strengths: [
+                    "풍부한 창의력과 공감 능력을 바탕으로 타겟 고객의 니즈를 섬세하게 파악합니다.",
+                    "하나의 현상을 다각도로 바라보며, 남들이 생각하지 못한 새로운 가능성을 잘 발견합니다.",
+                    "큰 그림을 그리고 비전을 세팅하는 기획 초기 단계에서 누구보다 뛰어난 통찰력을 발휘합니다."
+                ],
+                weaknesses: [
+                    "다양한 가능성을 모두 안고 가려다 보니, 하나를 선택하고 집중하는 '가지치기'에 어려움을 느낍니다.",
+                    "생각이 꼬리를 물어 구체적인 산출물(문서, 프로토타입)로 옮기는 속도가 더딘 편입니다.",
+                    "실행 과정에서 발생하는 현실적인 제약에 부딪히면 기획 자체를 자주 뒤엎으려는 경향이 있습니다."
+                ],
+                warning: "⚠️ 마의 구간: 기획(Week 1) ➔ 제작(Week 2) 이동 불가",
+                prescription: "고객의 고통은 뼈저리게 아는데, 정작 '그래서 뭘 만들어야 할지'에서 턱 막힙니다. 기획을 멈추고 이번 주 테스트할 '단 하나의 가설'만 고르세요. 빈칸 1장 기획서를 채운 뒤, 곧바로 노코드 툴로 뭐든 클릭 가능한 버튼을 만드셔야 합니다."
+            },
+            "B": {
+                badge: "Week 2 무한루프 [1-2-2-3-4] 타입",
+                title: "💎 깎고 또 깎는 완벽주의자",
+                desc: "당신은 책임감이 강하고 퀄리티를 타협하지 않는 훌륭한 제작자입니다. 디자인, 로고, 프로덕트의 디테일 완성도를 높이며 만드는 행위 자체를 무척 사랑합니다.",
+                strengths: [
+                    "사용자 경험을 섬세하게 고려하며, 퀄리티 높은 결과물을 만들어내는 책임감이 강합니다.",
+                    "프로덕트의 디테일과 디자인, 구조적 안정성을 끝까지 물고 늘어지는 꼼꼼함이 돋보입니다.",
+                    "한 번 실행에 옮기기 시작하면 놀라운 집중력을 발휘하여 완성도 있는 결과물을 도출해 냅니다."
+                ],
+                weaknesses: [
+                    "엉성한 초안을 남에게 보여주는 것에 대한 심리적 문턱이 매우 높아 배포를 방어적으로 미룹니다.",
+                    "'핵심 기능 구현'보다 부가적인 기능이나 디자인 추가에 몰두하여 데드라인을 놓치기 쉽습니다.",
+                    "완벽한 상태가 되어야만 시장이 긍정적으로 반응할 것이라는 엄격한 기준에 스스로 갇히곤 합니다."
+                ],
+                warning: "⚠️ 마의 구간: 제작(Week 2) ➔ 배포(Week 3) 이동 불가",
+                prescription: "정작 이게 '누구한테 팔릴지' 고민하거나 '시장 피드백' 받는 것을 두려워합니다. 2주차 제작 퀄리티에 대한 눈높이를 인위적으로 30%로 낮추세요. 세상에서 가장 못생긴 초안(Ugly Draft)을 일단 런칭하고 쓴소리를 견디는 훈련이 필수입니다."
+            },
+            "C": {
+                badge: "Week 3 무한루프 [1-2-3-3-4] 타입",
+                title: "🚀 브레이크 파열 불도저",
+                desc: "당신은 속도전의 달인입니다. 일단 생각한 것을 눈앞의 실체로 빠르게 만들어 장터에 내다 파는 압도적인 추진력을 가지고 있습니다.",
+                strengths: [
+                    "시장에 결과물을 내놓는 것을 두려워하지 않고 행동으로 부딪히며 배우는 압도적인 실행력이 있습니다.",
+                    "완벽하지 않더라도 일단 눈앞의 실체로 빠르게 만들어내는 속도전의 달인입니다.",
+                    "외부의 피드백이나 실패에 대한 타격감이 적어, 다른 유형보다 회복탄력성이 매우 뛰어납니다."
+                ],
+                weaknesses: [
+                    "초기 기획이나 타겟 정의를 얕게 하고 넘어가, '누구를 위한 서비스인가'라는 방향성을 잃기 쉽습니다.",
+                    "명확한 목표나 추적해야 할 데이터 지표 설정 없이 배포부터 진행하여, 결과를 의미 있게 회고하기 어렵습니다.",
+                    "피드백을 받을 때 근본적인 원인을 깊이 고민하기보다, 당장의 현상을 수정하는 것에 집중할 수 있습니다."
+                ],
+                warning: "⚠️ 마의 구간: 배포(Week 3) ➔ 회고(Week 4) 이동 불가",
+                prescription: "빠르게 런칭했지만 지표 회고 없이 새 아이템으로 도망가려 합니다. 무작정 엑셀을 밟기 전에 내비게이션 목적지부터 찍으세요. 런칭 전 유입/클릭/전환 중 '지켜볼 단 하나의 지표(Data)'를 반드시 세팅하고 추적하세요."
+            }
+        };
+
+        let currentQuestionIndex = 0;
+        const scores = { A: 0, B: 0, C: 0 };
+        let selectedOptionType = null;
+        let userName = "";
+
+        const userNameInput = document.getElementById('user-name');
+        const startBtn = document.getElementById('start-btn');
+        const introSection = document.getElementById('intro-section');
+        const quizSection = document.getElementById('quiz-section');
+        const loadingSection = document.getElementById('loading-section');
+        const resultSection = document.getElementById('result-section');
+        const questionContainer = document.getElementById('question-container');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const displayName = document.getElementById('display-name');
+
+        // Enter 키로 시작
+        userNameInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') startQuiz();
+        });
+
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', nextQuestion);
+
+        function startQuiz() {
+            userName = userNameInput.value.trim();
+            if (!userName) {
+                alert("이름(또는 닉네임)을 입력해주세요!");
+                userNameInput.focus();
+                return;
+            }
+
+            introSection.style.display = 'none';
+            quizSection.style.display = 'block';
+            showQuestion(currentQuestionIndex);
+        }
+
+        function showQuestion(index) {
+            selectedOptionType = null;
+            nextBtn.disabled = true;
+
+            // 애니메이션 효과 리셋
+            questionContainer.classList.remove('animate__fadeIn');
+            void questionContainer.offsetWidth; // trigger reflow
+            questionContainer.classList.add('animate__fadeIn');
+
+            const q = questions[index];
+            const progress = ((index) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            let html = `
+            <div class="question-number">Question ${index + 1} / ${questions.length}</div>
+            <div class="question-text">${q.q}</div>
+            <div class="options">
+        `;
+
+            q.options.forEach(opt => {
+                html += `<button class="btn-option" onclick="selectOption(this, '${opt.type}')">${opt.text}</button>`;
+            });
+
+            html += `</div>`;
+            questionContainer.innerHTML = html;
+
+            if (index === questions.length - 1) {
+                nextBtn.textContent = '결과 확인하기';
+                nextBtn.classList.remove('btn-acts');
+                nextBtn.classList.add('btn-acts'); // Keep styling
+            }
+        }
+
+        window.selectOption = function (element, type) {
+            const options = questionContainer.querySelectorAll('.btn-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+
+            element.classList.add('selected');
+            selectedOptionType = type;
+            nextBtn.disabled = false;
+
+            // UX 개선: 마지막 문항이 아니면 옵션 클릭시 0.4초 후 자동 넥스트 (원하시면 주석 해제)
+            // if (currentQuestionIndex < questions.length - 1) {
+            //     setTimeout(nextQuestion, 400);
+            // }
+        }
+
+        function nextQuestion() {
+            if (!selectedOptionType) return;
+
+            scores[selectedOptionType]++;
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(currentQuestionIndex);
+            } else {
+                showLoadingAndProcess();
+            }
+        }
+
+        function showLoadingAndProcess() {
+            quizSection.style.display = 'none';
+            loadingSection.style.display = 'block';
+
+            const loadingTexts = [
+                "당신의 답변을 분석 중입니다",
+                "ACTS29 알고리즘 가동 중",
+                "마의 구간 진단 중",
+                "결과지를 작성하고 있습니다"
+            ];
+
+            let textIdx = 0;
+            const textElement = document.getElementById('loading-text');
+            const textInterval = setInterval(() => {
+                textIdx = (textIdx + 1) % loadingTexts.length;
+                textElement.textContent = loadingTexts[textIdx];
+            }, 600);
+
+            setTimeout(() => {
+                clearInterval(textInterval);
+                processResult();
+            }, 2000); // 2초 뒤 결과 화면
+        }
+
+        function processResult() {
+            loadingSection.style.display = 'none';
+            resultSection.style.display = 'block';
+            resultSection.classList.add('animate__animated', 'animate__fadeInUp');
+
+            let finalType = 'A';
+            let maxScore = scores['A'];
+
+            if (scores['B'] > maxScore) {
+                maxScore = scores['B'];
+                finalType = 'B';
+            }
+            if (scores['C'] > maxScore) {
+                finalType = 'C';
+            }
+
+            const res = resultsData[finalType];
+            displayName.textContent = userName;
+
+            document.getElementById('result-badge').textContent = res.badge;
+            document.getElementById('result-title').textContent = res.title;
+            document.getElementById('result-desc').textContent = res.desc;
+
+            document.getElementById('result-strengths').innerHTML = res.strengths.map(s => `<li>${s}</li>`).join('');
+            document.getElementById('result-weaknesses').innerHTML = res.weaknesses.map(s => `<li>${s}</li>`).join('');
+
+            document.getElementById('result-warning').textContent = res.warning;
+            document.getElementById('result-prescription').textContent = res.prescription;
+
+            // DB (Google Sheets) 전송
+            sendToGoogleSheet(userName, finalType, res.title);
+        }
+
+        function sendToGoogleSheet(name, typeAlphabet, typeName) {
+            if (!GOOGLE_SHEET_WEBHOOK_URL) {
+                console.log("웹훅 URL이 없어 DB 전송을 생략합니다.");
+                return;
+            }
+
+            // 구글 스크립트 특성상 no-cors 모드로 폼데이터/URLSearchParams 전송이 가장 안전합니다.
+            const formData = new URLSearchParams();
+            formData.append("name", name);
+            formData.append("type", typeAlphabet);
+            formData.append("title", typeName);
+            formData.append("time", new Date().toLocaleString('ko-KR'));
+
+            fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData
+            }).then(() => {
+                console.log('구글 시트 전송 성공 (no-cors)');
+            }).catch(err => {
+                console.error('구글 시트 전송 에러:', err);
+            });
+        }
+
+        function saveResultAsImage() {
+            const btn = document.getElementById('save-image-btn');
+            btn.disabled = true;
+            btn.textContent = '⏳ 이미지 생성 중...';
+
+            const target = document.getElementById('result-section');
+
+            html2canvas(target, {
+                backgroundColor: '#2d3748',
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                onclone: function (clonedDoc) {
+                    const clonedTarget = clonedDoc.getElementById('result-section');
+
+                    // 1. [핵심] animate.css 애니메이션 초기화 (clone DOM에서 애니메이션이 0초부터 재시작되어 opacity가 매우 낮게 찍히는 현상 방지)
+                    clonedTarget.classList.remove('animate__animated', 'animate__fadeInUp', 'animate__fadeIn');
+                    clonedTarget.style.animation = 'none';
+                    clonedTarget.style.opacity = '1';
+                    clonedTarget.style.transform = 'none';
+
+                    const animatedChildren = clonedTarget.querySelectorAll('.animate__animated');
+                    animatedChildren.forEach(el => {
+                        el.classList.remove('animate__animated', 'animate__fadeInUp', 'animate__fadeIn');
+                        el.style.animation = 'none';
+                        el.style.opacity = '1';
+                        el.style.transform = 'none';
+                    });
+
+                    // 2. Safari 텍스트 검은색(상속 끊김) 오류 방지
+                    clonedTarget.style.color = '#ffffff';
+
+                    // 3. Safari 희뿌연 레이어(backdrop-filter 버그) 방지
+                    clonedTarget.style.backdropFilter = 'none';
+                    clonedTarget.style.webkitBackdropFilter = 'none';
+                    // 카드 배경을 반투명(rgba) 대신 비슷한 단일 색상으로 대체하여 더욱 선명하게
+                    clonedTarget.style.background = '#364153';
+
+                    // 3. 캡처 이미지에서 버튼은 숨김 처리 (더 깔끔한 결과물)
+                    const buttons = clonedTarget.querySelectorAll('button');
+                    buttons.forEach(b => b.style.display = 'none');
+                }
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `ACTS29_실행성향_${userName}.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', 0.95);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                btn.disabled = false;
+                btn.textContent = '📸 결과 이미지 저장하기';
+            }).catch(err => {
+                console.error('이미지 저장 에러:', err);
+                alert('이미지 저장에 실패했습니다. 다시 시도해주세요.');
+                btn.disabled = false;
+                btn.textContent = '📸 결과 이미지 저장하기';
+            });
+        }
+    </script>
+
+</body>
+
+</html>
