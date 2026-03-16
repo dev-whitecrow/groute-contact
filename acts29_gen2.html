@@ -55,27 +55,35 @@
             z-index: 1000;
             display: flex;
             justify-content: center;
+            align-items: center;
             padding: 16px 20px;
             /* Subtle gradient backdrop */
             background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 60%, rgba(0, 0, 0, 0));
             pointer-events: none;
         }
 
+        .cta-inner {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 480px;
+            pointer-events: auto;
+        }
+
         .cta-button {
             display: block;
-            width: 100%;
-            max-width: 440px;
+            flex: 1;
             padding: 16px 0;
-            background-color: #00C9A1;
-            color: #FFFFFF;
-            font-size: 18px;
+            background-color: #FEE500;
+            color: #3C1E1E;
+            font-size: 16px;
             font-weight: 700;
             text-align: center;
             text-decoration: none;
             border: 2px solid rgba(255, 255, 255, 0.9);
             border-radius: 14px;
             cursor: pointer;
-            pointer-events: auto;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             /* White neon glow */
             box-shadow:
@@ -90,8 +98,38 @@
             transform: scale(0.97);
         }
 
+        .instagram-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow:
+                0 0 8px rgba(255, 255, 255, 0.4),
+                0 0 20px rgba(255, 255, 255, 0.15),
+                inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        .instagram-button:active {
+            transform: scale(0.97);
+        }
+
+        .instagram-button svg {
+            width: 28px;
+            height: 28px;
+            fill: #FFFFFF;
+        }
+
         @media (hover: hover) {
-            .cta-button:hover {
+            .cta-button:hover,
+            .instagram-button:hover {
                 transform: translateY(-2px);
                 box-shadow:
                     0 0 12px rgba(255, 255, 255, 0.6),
@@ -231,12 +269,10 @@
             if (document.visibilityState === 'hidden') sendTimeOnPage();
         });
 
-        // ─── CTA Click Tracking ───
+        // ─── CTA Click Tracking (카카오톡 오픈채팅) ───
         function handleCTAClick(e) {
             e.preventDefault();
-            var url = abGroup === 'A'
-                ? 'https://tally.so/r/lbd4YN'
-                : 'https://tally.so/r/VL5xbM';
+            var url = 'https://open.kakao.com/o/grjaM89h';
 
             // Calculate current scroll percentage
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -248,7 +284,7 @@
 
             gtag('event', 'cta_click', {
                 'event_category': 'acts29_gen2',
-                'event_label': 'apply_button',
+                'event_label': 'kakao_openchat_button',
                 'ab_group': abGroup,
                 'destination_url': url,
                 'scroll_percent': currentScrollPercent
@@ -256,13 +292,43 @@
 
             // Meta Pixel: Lead 이벤트
             fbq('track', 'Lead', {
-                content_name: 'ACTS29 Gen2 Apply',
+                content_name: 'ACTS29 Gen2 KakaoChat',
                 content_category: abGroup
             });
 
             // Small delay to ensure GA + Pixel events fire
             setTimeout(function () {
-                window.location.href = url;
+                window.open(url, '_blank');
+            }, 300);
+        }
+
+        // ─── Instagram Click Tracking ───
+        function handleInstagramClick(e) {
+            e.preventDefault();
+            var url = 'https://www.instagram.com/acts29community/';
+
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let currentScrollPercent = 0;
+            if (docHeight > 0) {
+                currentScrollPercent = Math.round((scrollTop / docHeight) * 100);
+            }
+
+            gtag('event', 'cta_click', {
+                'event_category': 'acts29_gen2',
+                'event_label': 'instagram_button',
+                'ab_group': abGroup,
+                'destination_url': url,
+                'scroll_percent': currentScrollPercent
+            });
+
+            fbq('track', 'Lead', {
+                content_name: 'ACTS29 Gen2 Instagram',
+                content_category: abGroup
+            });
+
+            setTimeout(function () {
+                window.open(url, '_blank');
             }, 300);
         }
     </script>
@@ -281,9 +347,16 @@
 
     <!-- Fixed CTA -->
     <div class="cta-wrapper">
-        <a class="cta-button" id="ctaButton" href="#" onclick="handleCTAClick(event)">
-            지원하기
-        </a>
+        <div class="cta-inner">
+            <a class="cta-button" id="ctaButton" href="#" onclick="handleCTAClick(event)">
+                ACTS29 실시간 소식 받기
+            </a>
+            <a class="instagram-button" id="instagramButton" href="#" onclick="handleInstagramClick(event)" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+            </a>
+        </div>
     </div>
 
     <script>
@@ -297,10 +370,11 @@
             slides.push('acts29_gen2/Slide 1 TestB.jpeg');
         }
 
-        // Common slides 2~15
-        for (var i = 2; i <= 15; i++) {
+        // Common slides 2~13, 15 (Slide 14 제거: 가격 슬라이드)
+        for (var i = 2; i <= 13; i++) {
             slides.push('acts29_gen2/Slide ' + i + ' Common.jpeg');
         }
+        slides.push('acts29_gen2/Slide 15 Common.jpeg');
 
         // Render
         var container = document.getElementById('slideContainer');
