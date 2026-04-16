@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ACTS29 | 당신의 아이디어를 29일 만에 현실로</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        body { font-family: 'Pretendard', 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Advanced Apple-style Glassmorphism */
+        .glass, .glass-card, .glass-dark {
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            /* Strong top-left highlight, weak overall edge, strong outer scattered light (glow) */
+            box-shadow: 
+                inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+                inset -1px -1px 5px rgba(255, 255, 255, 0.3),
+                0 0 25px rgba(255, 255, 255, 0.35),
+                0 20px 40px rgba(15, 29, 42, 0.05);
+        }
+
+        .glass {
+            background: rgba(247, 249, 255, 0.1);
+            border-radius: 2rem; /* Increased R value */
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3rem; /* Max R value for cards */
+        }
+
+        .glass-dark {
+            background: rgba(15, 29, 42, 0.25);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                inset 3px 3px 6px rgba(255, 255, 255, 0.3),
+                inset -1px -1px 4px rgba(255, 255, 255, 0.1),
+                0 0 25px rgba(255, 255, 255, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 3rem;
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+            box-shadow: 
+                inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.2),
+                0 4px 15px rgba(15, 29, 42, 0.05);
+        }
+
+        .glass-circle {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            box-shadow: 
+                inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.2),
+                0 4px 15px rgba(15, 29, 42, 0.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00C4B4, #006A61);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-button {
+            position: relative;
+        }
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 40s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { animation: blob 10s infinite alternate ease-in-out; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+    </style>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                "surface": "#f7f9ff",
+                "on-surface": "#0f1d2a",
+                "primary": "#006a61",
+                "primary-container": "#00c4b4",
+                "on-primary": "#ffffff",
+                "tertiary": "#6f5d00",
+                "tertiary-container": "#ccad00",
+                "secondary": "#555f71",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-low": "#eef4ff",
+                "surface-container": "#e4efff",
+                "surface-container-high": "#dbe9fd",
+                "outline-variant": "#bacac6"
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-[#eef4ff] text-on-surface antialiased relative min-h-screen overflow-x-hidden">
+
+    <!-- Ambient Glassmorphism Background (Low-saturation pastels) -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00c4b4] rounded-full mix-blend-multiply opacity-10 filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] bg-[#ccad00] rounded-full mix-blend-multiply opacity-10 filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-[#bacac6] rounded-full mix-blend-multiply opacity-20 filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 glass">
+        <div class="flex justify-between items-center px-8 h-20 max-w-[1440px] mx-auto">
+            <div class="text-2xl font-black tracking-tighter text-on-surface">ACTS29</div>
+            <div class="hidden md:flex gap-8 items-center">
+                <a class="text-on-surface font-medium hover:text-primary-container transition-all" href="#process">프로세스</a>
+                <a class="text-on-surface font-medium hover:text-primary-container transition-all" href="#benefits">혜택</a>
+                <a class="text-on-surface font-medium hover:text-primary-container transition-all" href="#mentors">운영진</a>
+                <a class="text-on-surface font-medium hover:text-primary-container transition-all" href="#faq">FAQ</a>
+            </div>
+            <div class="relative group">
+                <div class="absolute inset-1.5 bg-[#00c4b4] rounded-[2rem] blur-[12px] opacity-60 group-hover:opacity-90 transition-all duration-300"></div>
+                <a href="#" onclick="handleCTAClick(event)" class="relative z-10 glass px-6 py-2.5 font-bold text-on-surface active:scale-95 transform transition-transform hover:bg-white/10 flex items-center justify-center">지원하기</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="w-full">
+        <!-- ================= B 파트 (권위 및 결과 강조) ================= -->
+
+        <!-- 1. Hero Section -->
+        <section class="pt-48 pb-32 px-8">
+            <div class="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8 relative z-10 glass-card p-12">
+                    <span class="inline-block glass-pill text-tertiary-container px-5 py-2 text-sm font-bold tracking-widest uppercase">ACTS 29</span>
+                    <h1 class="text-[3.5rem] leading-[1.1] font-black tracking-tight text-on-surface">
+                        첫 시도를<br/>
+                        <span class="gradient-text">안전하게</span>
+                    </h1>
+                    <p class="text-lg leading-relaxed text-secondary font-medium">
+                        새로운 도전,<br/>
+                        안전하게 시도해보는 커뮤니티
+                    </p>
+                        <div class="relative inline-block w-full md:w-auto mt-4 group">
+                            <div class="absolute inset-2 bg-[#00c4b4] rounded-[3rem] blur-[20px] opacity-50 group-hover:opacity-80 group-hover:blur-[24px] transition-all duration-500"></div>
+                            <button onclick="handleCTAClick(event)" class="relative z-10 w-full glass px-10 py-5 font-bold text-xl text-on-surface hover:-translate-y-1 transition-transform flex justify-center items-center gap-3 bg-[rgba(255,255,255,0.2)]">
+                                커뮤니티 합류하기
+                                <span class="material-symbols-outlined text-[1.4rem]">rocket_launch</span>
+                            </button>
+                        </div>
+                </div>
+                <div class="relative hidden justify-center md:flex opacity-60">
+                    <div class="w-64 h-64 bg-surface-container-lowest rounded-[3rem] shadow-2xl transform rotate-12 flex items-center justify-center border border-white">
+                        <span class="material-symbols-outlined text-[8rem] text-primary-container/30">directions_run</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Mentors -->
+        <section id="mentors" class="py-32 px-8">
+            <div class="max-w-[1440px] mx-auto glass-card p-12 lg:p-16">
+                <h2 class="text-4xl font-black text-on-surface mb-4">당신의 29일 여정의 페이스메이커</h2>
+                <p class="text-secondary text-lg mb-16 font-medium">당신의 꿈을 찾아주기로 결심한 점화장치팀이 끝까지 함께합니다.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- 최융지 -->
+                    <div class="bg-surface/50 backdrop-blur-sm p-8 rounded-2xl border border-white shadow-sm flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center gap-6 mb-6">
+                            <div class="w-20 h-20 glass-circle flex items-center justify-center text-primary-container text-xl font-bold">최융지</div>
+                            <div>
+                                <div class="text-2xl font-bold text-on-surface">최융지</div>
+                                <div class="text-primary-container font-semibold">화이트크로우 창업자</div>
+                            </div>
+                        </div>
+                        <div class="text-secondary font-medium space-y-2 mb-8 text-[15px] leading-relaxed">
+                            <p>연세대학교 최우등졸업</p>
+                            <p>통계화학 박사 (네이처급 논문 12편)</p>
+                            <p>2023 경기도 과학기술인 선정</p>
+                            <p>과기부/중기부장관상</p>
+                            <p>UCLA 초빙연구원</p>
+                            <p>국내외 특허 15건 등</p>
+                        </div>
+                        <div class="mt-auto pt-6 border-t border-outline-variant/30 text-center font-bold text-on-surface">
+                            "꿈을 꾸게하는 사람"
+                        </div>
+                    </div>
+                    <!-- 정하민 -->
+                    <div class="bg-surface/50 backdrop-blur-sm p-8 rounded-2xl border border-white shadow-sm flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center gap-6 mb-6">
+                            <div class="w-20 h-20 glass-circle flex items-center justify-center text-tertiary-container text-xl font-bold">정하민</div>
+                            <div>
+                                <div class="text-2xl font-bold text-on-surface">정하민</div>
+                                <div class="text-tertiary-container font-semibold">화이트크로우 공동창업자</div>
+                            </div>
+                        </div>
+                        <div class="text-secondary font-medium space-y-2 mb-8 text-[15px] leading-relaxed">
+                            <p>상트페테르부르크대 전액장학 졸업</p>
+                            <p>1,000명 규모 커뮤니티 빌딩 경험 多</p>
+                            <p>청년취업사관학교 PM 교육</p>
+                            <p>K-디지털 트레이닝 전문 강사</p>
+                            <p>국내 에듀테크 1위 기업 C사 PM</p>
+                            <p>교육 AI 챗봇 시스템 총괄 PO</p>
+                        </div>
+                        <div class="mt-auto pt-6 border-t border-outline-variant/30 text-center font-bold text-on-surface">
+                            "꿈을 현실화하는 사람"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Performance Metrics (Slide 11) -->
+        <section class="py-20 px-8">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-black text-on-surface mb-2">고민 그만! 일단 시작하세요.</h2>
+                    <p class="text-secondary font-medium">숫자가 증명합니다. 후회없는 선택이 될 수 있도록</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-10 text-center flex flex-col justify-center items-center">
+                        <div class="text-5xl font-black text-primary-container mb-2">100%</div>
+                        <div class="text-sm font-bold text-secondary uppercase tracking-widest">완주율</div>
+                    </div>
+                    <div class="glass-card p-10 text-center flex flex-col justify-center items-center">
+                        <div class="text-5xl font-black text-on-surface mb-2">83%</div>
+                        <div class="text-sm font-bold text-secondary uppercase tracking-widest">시제품 완성</div>
+                    </div>
+                    <div class="glass-card p-10 text-center flex flex-col justify-center items-center relative overflow-hidden">
+                        <div class="text-5xl font-black text-on-surface mb-2">70%</div>
+                        <div class="text-sm font-bold text-secondary uppercase tracking-widest mb-1">시장 출시</div>
+                        <div class="text-xs bg-tertiary-container/10 text-tertiary-container px-2 py-0.5 rounded font-bold">반응 200건 이상</div>
+                        <div class="absolute bottom-2 right-4 text-[10px] text-outline-variant">*사내 비공개 출시는 제외</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Gen 1 Summary (Slide 4) -->
+        <section class="py-20 px-8">
+            <div class="max-w-[1000px] mx-auto glass-card flex flex-col justify-center items-center p-12 lg:p-20 text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-10 text-on-surface leading-tight">
+                    ACTS29로 1기 전원이<br/>자신의 아이디어를 세상에 내놓았습니다
+                </h2>
+                <div class="relative">
+                    <span class="material-symbols-outlined text-[4rem] text-primary-container/20 absolute -top-8 -left-8">format_quote</span>
+                    <p class="text-xl md:text-2xl font-medium leading-relaxed text-secondary relative z-10">
+                        "어떻게 안전하게 시작하는지 몸으로 익히는 시간이었어요.<br/>그런데 진짜 제품까지 만들어질 줄은...🥺"
+                    </p>
+                </div>
+                <div class="mt-8 font-bold text-primary-container">1기 크루 혜인님 — 실제 29일 후 최종 결과물</div>
+            </div>
+        </section>
+
+        <!-- 5. First CTA Pricing (Slide 14) -->
+        <section class="py-20 px-8">
+            <div class="max-w-[800px] mx-auto glass-dark p-12 rounded-[2rem] text-center text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 text-9xl opacity-10">🚀</div>
+                <h2 class="text-3xl font-black mb-8 relative z-10">당신의 인생을 바꿀 29일</h2>
+                <div class="relative z-10 mb-8 p-8 bg-white/5 rounded-2xl border border-white/10 glass">
+                    <div class="line-through text-white/50 mb-2">정가: 250,000원 (보증금 5만원 포함)</div>
+                    <div class="inline-block bg-primary-container/20 text-primary-container px-3 py-1 rounded-full text-xs font-bold mb-3 border border-primary-container/30">~ 2/22 11:59 이전 제출</div>
+                    <div class="text-4xl font-black text-[#FFE167] mb-2">얼리버드: 200,000원</div>
+                    <div class="text-sm text-white/70 font-medium">(보증금 5만원 포함)</div>
+                </div>
+                <p class="text-white/80 font-medium text-sm mb-10 leading-relaxed relative z-10">
+                    보증금 5만원은 한 달간의 의지를 사는 금액입니다.<br/>
+                    <strong class="text-white bg-primary-container/20 px-2 py-1 rounded mt-2 inline-block">90% 이상 참여시 보증금 100% 환급합니다.</strong>
+                </p>
+                <div class="relative z-10">
+                    <button onclick="handleCTAClick(event)" class="bg-[#00C4B4] glow-button text-on-surface px-10 py-5 rounded-xl font-bold text-xl w-full max-w-md shadow-xl shadow-primary-container/20 hover:-translate-y-1 transition-all">
+                        지금 합류합시다 🚀
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= A 파트 (상세한 논리와 증거) ================= -->
+
+        <!-- 6. Target Empathy (Slide 8) -->
+        <section class="py-32 px-8">
+            <div class="max-w-[1440px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl font-black text-on-surface leading-tight mb-4">
+                        이런 생각을 한 번이라도<br/>해 본 당신,
+                    </h2>
+                    <p class="text-xl font-bold text-primary-container mb-8">딱! 지금 이시기에 ACTS29가 필요합니다.</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="glass-card p-6 flex gap-6 items-start hover:-translate-y-1 transition-transform">
+                        <div class="w-12 h-12 glass flex items-center justify-center shrink-0 text-xl font-bold">🌱</div>
+                        <p class="text-on-surface font-medium leading-relaxed">새로운 시작, 어디서부터 해야할지 모르겠어요. 사업을 해본 사람 옆에서 나만의 무언가를 만들어가보고 싶어요.</p>
+                    </div>
+                    <div class="glass-card p-6 flex gap-6 items-start hover:-translate-y-1 transition-transform">
+                        <div class="w-12 h-12 glass flex items-center justify-center shrink-0 text-xl font-bold">🛡️</div>
+                        <p class="text-on-surface font-medium leading-relaxed">비즈니스에는 낙법같은 거 없나요? 위험한 운동에는 낙법부터 가르치던데... 안전하게 배우고 싶어요.</p>
+                    </div>
+                    <div class="glass-card p-6 flex gap-6 items-start hover:-translate-y-1 transition-transform">
+                        <div class="w-12 h-12 glass flex items-center justify-center shrink-0 text-xl font-bold">🤖</div>
+                        <p class="text-on-surface font-medium leading-relaxed">AI 시대에 나만의 고유한 것을 해보고 싶어요. 내 아이디어에 대해 객관적인 피드백을 받고 싶어요.</p>
+                    </div>
+                    <div class="glass-card p-6 flex gap-6 items-start hover:-translate-y-1 transition-transform">
+                        <div class="w-12 h-12 glass flex items-center justify-center shrink-0 text-xl font-bold">💪</div>
+                        <p class="text-on-surface font-medium leading-relaxed">스스로도 꾸준히 하는 실행 근육을 만들고 싶어요. 불안감이나 푸시보다는 지지와 응원이 있는 분위기를 선호해요.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Process Summary (Slide 2) -->
+        <section id="process" class="py-20 px-8 text-center">
+            <div class="max-w-[800px] mx-auto glass-card p-16 relative overflow-hidden">
+                <div class="absolute inset-0 bg-primary-container opacity-5"></div>
+                <h3 class="text-xl font-medium text-secondary italic mb-10 relative z-10">
+                    "벌써 지나간 1월... 그리고 2월... 난 뭐하고 보냈지?" 🤔
+                </h3>
+                <h2 class="text-3xl md:text-5xl font-black text-on-surface leading-tight mb-8 relative z-10">
+                    새로운 도전의<br/>첫 시작을 함께 🚀
+                </h2>
+                <div class="inline-flex flex-wrap justify-center gap-4 relative z-10">
+                    <span class="glass-pill text-primary-container px-6 py-3 font-bold text-sm">29일만에 완성하는 실행 시스템</span>
+                    <span class="glass-pill text-on-surface px-6 py-3 font-bold flex items-center gap-2 text-sm">🛠️ 기획부터 시장 출시까지</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Detailed Schedule (Slide 7 - 29-Day System Timeline) -->
+        <section class="py-32 px-8">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="mb-20 text-center">
+                    <div class="inline-block bg-tertiary-container/10 text-tertiary-container px-4 py-1.5 rounded-full text-sm font-bold tracking-widest uppercase mb-4">MAR ACTS29</div>
+                    <h2 class="text-4xl font-black text-on-surface">두려워하지 마세요! 함께합니다.</h2>
+                </div>
+
+                <div class="glass-card max-w-4xl mx-auto p-10 mb-16 flex flex-col md:flex-row gap-8 items-center justify-between">
+                    <div class="flex-1">
+                        <div class="font-bold text-primary-container mb-1">개별 스프린트</div>
+                        <p class="text-secondary text-sm">가이드의 응원과 동기부여가 들어가며 스스로 계획한 것들을 행동합니다.</p>
+                    </div>
+                    <div class="w-px h-12 bg-outline-variant/30 hidden md:block"></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-tertiary-container mb-1">ACTS데이</div>
+                        <p class="text-secondary text-sm">온라인으로 진행되는 ACTS 모임 시간입니다. <span class="text-primary font-bold bg-primary/10 px-1 rounded">필수 참석</span>해야합니다!</p>
+                    </div>
+                </div>
+
+                <div class="max-w-[1000px] mx-auto relative space-y-12 before:absolute before:left-[24px] md:before:left-1/2 before:top-0 before:h-full before:w-[2px] before:bg-outline-variant/30">
+                    <!-- Week 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-16 text-left md:text-right mb-4 md:mb-0">
+                            <div class="text-primary-container font-black text-xl mb-1">1주차</div>
+                            <h4 class="text-2xl font-bold">아이템 뼈대 만들기</h4>
+                            <p class="text-secondary mt-2 text-sm font-medium">어글리 드래프트 자랑대회</p>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 glass-circle flex items-center justify-center z-10 font-black text-on-surface text-xl">1</div>
+                        <div class="md:w-1/2 md:pl-16"></div>
+                    </div>
+                    <!-- Week 2 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-16"></div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 glass-circle flex items-center justify-center z-10 font-black text-primary-container text-xl bg-[rgba(0,196,180,0.15)] border-[rgba(0,196,180,0.3)]">2</div>
+                        <div class="md:w-1/2 md:pl-16 text-left mb-4 md:mb-0">
+                            <div class="text-primary-container font-black text-xl mb-1">2주차</div>
+                            <h4 class="text-2xl font-bold">첫 번째 아이템 만들기</h4>
+                            <p class="text-secondary mt-2 text-sm font-medium">첫작품 자랑대회</p>
+                        </div>
+                    </div>
+                    <!-- Week 3 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-16 text-left md:text-right mb-4 md:mb-0">
+                            <div class="text-tertiary-container font-black text-xl mb-1">3주차</div>
+                            <h4 class="text-2xl font-bold">아이템 시장에 던져보기</h4>
+                            <p class="text-secondary mt-2 text-sm font-medium">실패 자랑대회</p>
+                        </div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 bg-tertiary-container text-white rounded-full flex items-center justify-center z-10 shadow-sm font-black">3</div>
+                        <div class="md:w-1/2 md:pl-16"></div>
+                    </div>
+                    <!-- Week 4 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-16"></div>
+                        <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 bg-on-surface text-white rounded-full flex items-center justify-center z-10 shadow-sm font-black">4</div>
+                        <div class="md:w-1/2 md:pl-16 text-left mb-4 md:mb-0">
+                            <div class="text-on-surface font-black text-xl mb-1">4주차</div>
+                            <h4 class="text-2xl font-bold">지속 가능성과 방향성</h4>
+                            <p class="text-secondary mt-2 text-sm font-medium">ACTS29 수료 및 성과 자랑대회</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Benefits (Velocity Bento Grid - Slide 6, 9) -->
+        <section id="benefits" class="py-32 px-8">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="mb-16">
+                    <h2 class="text-4xl font-black text-on-surface">29일 후, 당신은 반드시 달라져있습니다</h2>
+                    <p class="text-secondary mt-4 font-bold text-lg text-tertiary-container">꿈의 도화선에 불을 붙이자!</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Slide 6 summary cards -->
+                    <div class="glass-card p-10 flex flex-col justify-between">
+                        <div class="text-4xl mb-6">📝</div>
+                        <p class="font-bold text-on-surface text-lg">기록과 템플릿</p>
+                        <p class="text-secondary text-sm mt-2">매일 성장 기록, 실행 가이드, 개인 브랜딩 기초</p>
+                    </div>
+                    <div class="glass-card p-10 flex flex-col justify-between">
+                        <div class="text-4xl mb-6">🤝</div>
+                        <p class="font-bold text-primary-container text-lg">밀착 그룹핑</p>
+                        <p class="text-secondary text-sm mt-2">리더 및 동료 관리, 1:1 컨설팅, 커피챗</p>
+                    </div>
+                    <div class="glass-card p-10 flex flex-col justify-between">
+                        <div class="text-4xl mb-6">⚡</div>
+                        <p class="font-bold text-on-surface text-lg">실전형 지식</p>
+                        <p class="text-secondary text-sm mt-2">AI 프론티어 실전 강의, 브랜딩 강의</p>
+                    </div>
+
+                    <!-- Slide 9 Deep dive -->
+                    <div class="md:col-span-2 glass-card p-10 flex flex-col justify-between">
+                        <div class="text-xs font-bold text-primary-container tracking-widest uppercase mb-4">Exclusive</div>
+                        <h3 class="text-2xl font-bold mb-8 text-on-surface">ACTS29 크루가 되면<br/>이런 걸 받을 수 있어요.</h3>
+                        
+                        <div class="space-y-8">
+                            <div class="p-6 bg-surface/50 rounded-2xl border border-white">
+                                <div class="font-bold text-lg text-primary-container mb-2">기획 프로세스 템플릿</div>
+                                <div class="text-sm font-medium text-secondary mb-2">"어디서부터 하는 게 맞지? 이렇게 하는 게 맞나?"</div>
+                                <p class="text-on-surface text-sm">이런 고민들은 싹- 매주 가이드만 따라하기만 해도 어떻게 접근해야하는지 배울 수 있어요.</p>
+                            </div>
+                            <div class="p-6 bg-surface/50 rounded-2xl border border-white">
+                                <div class="font-bold text-lg text-primary-container mb-2">AI 프롬프트, 컨텍스트</div>
+                                <div class="text-sm font-medium text-secondary mb-2">"AI 프롬프트 하나 얻는데 댓글을 뭐 그렇게 달아달래..."</div>
+                                <p class="text-on-surface text-sm">엄선된 컨텍스트와 프롬프트, 에이전트가 계속 업데이트 되고 있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-dark p-10 rounded-[2rem] text-white overflow-hidden relative border border-white/10">
+                        <div class="relative z-10 h-full flex flex-col">
+                            <h3 class="text-2xl font-bold mb-4">기수 초월 네트워킹</h3>
+                            <p class="text-white/70 text-sm mb-6 flex-grow">"벽에 막혔는데... 조언만 조금 받으면..."<br/><br/>같은 분야, 공통 관심사의 검증된 사람들과 자료가 모이는 곳. 당신도 도움을 주는 사람이 될 수 있어요.</p>
+                            <span class="material-symbols-outlined text-4xl text-tertiary-container">hub</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Reviews (Success Stories Slider - Slide 10) -->
+        <section class="py-32 overflow-hidden relative">
+            <div class="max-w-[1440px] mx-auto px-8 mb-12">
+                <span class="material-symbols-outlined text-4xl mb-4 text-tertiary-container">forum</span>
+                <h2 class="text-4xl font-black text-on-surface">ACTS29,<br/>어떤 부분이 가장 만족스러웠나요?</h2>
+            </div>
+            <div class="flex gap-6 animate-marquee flex-nowrap hover:[animation-play-state:paused] pb-4">
+                <!-- Story Card 1 -->
+                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                    <h3 class="text-lg font-bold mb-6 flex items-start gap-2">
+                        🏁 첫 시작에 무엇부터 해야하는지 몰랐는데 알게됐어요!
+                    </h3>
+                    <div class="space-y-4 text-sm font-medium text-secondary">
+                        <p><strong class="text-primary-container">혜연 |</strong> 다른 배경을 가진 크루들의 시선으로 혼자라면 못 봤을 관점을 얻었어요. 복잡하게만 생각했던 것들이 명쾌해졌죠.</p>
+                        <p><strong class="text-primary-container">혜인 |</strong> 제공되는 템플릿만 따라가다 보니 어느새 진행이 되고 있었어요.</p>
+                    </div>
+                </div>
+                <!-- Story Card 2 -->
+                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                    <h3 class="text-lg font-bold mb-6 flex items-start gap-2">
+                        🚩 혼자선 몇 번이고 접었던 걸, 끝까지 할 수 있었어요!
+                    </h3>
+                    <div class="space-y-4 text-sm font-medium text-secondary">
+                        <p><strong class="text-[#F04438]">혜연 |</strong> 밀착 마크해주시니 게을러질 틈이 없었어요. 나보다 내 성공에 진심인 사람들.</p>
+                        <p><strong class="text-[#F04438]">혜인 |</strong> 나만의 기록이 쌓이고 그것이 브랜딩이 되는 경험을 했어요.</p>
+                        <p><strong class="text-[#F04438]">양준 |</strong> 헤매고 있으면 커피챗 합시다 챙겨주는 크루들 덕에 완주했습니다.</p>
+                    </div>
+                </div>
+                <!-- Story Card 3 -->
+                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                    <h3 class="text-lg font-bold mb-6 flex items-start gap-2">
+                        🏳️ 실패에 대응하는 법을 배웠어요. 작은 성공은 덤!
+                    </h3>
+                    <div class="space-y-4 text-sm font-medium text-secondary">
+                        <p><strong class="text-primary-container">종대 |</strong> '실패도 데이터다' 격려하는 문화 덕분에 두려움 없이 과감하게 시도했어요.</p>
+                        <p><strong class="text-primary-container">혜연 |</strong> 실패가 두려워서 시작을 못했는데, 가볍게 시작하는 법을 배웠어요.</p>
+                    </div>
+                </div>
+                <!-- Clone for seamless loop -->
+                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                    <h3 class="text-lg font-bold mb-6 flex items-start gap-2">
+                        🏁 첫 시작에 무엇부터 해야하는지 몰랐는데 알게됐어요!
+                    </h3>
+                    <div class="space-y-4 text-sm font-medium text-secondary">
+                        <p><strong class="text-primary-container">혜연 |</strong> 다른 배경을 가진 크루들의 시선으로 혼자라면 못 봤을 관점을 얻었어요. 복잡하게만 생각했던 것들이 명쾌해졌죠.</p>
+                        <p><strong class="text-primary-container">혜인 |</strong> 제공되는 템플릿만 따라가다 보니 어느새 진행이 되고 있었어요.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. Community Emphasis (Slide 3) -->
+        <section class="py-32 px-8">
+            <div class="max-w-[1000px] mx-auto glass-dark p-16 rounded-[3rem] text-center text-white border border-white/20 shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent"></div>
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 relative z-10 text-white/80">
+                    의지가 약해서 끝까지 할 수 있을지 모르겠다구요?
+                </h2>
+                <div class="text-4xl md:text-6xl font-black mb-12 relative z-10">
+                    꿈을 가진 <span class="text-tertiary-container">10명</span>이 함께 뜁니다
+                </div>
+                <div class="text-8xl md:text-[10rem] font-black text-primary-container mb-12 tracking-tighter opacity-90 drop-shadow-lg relative z-10">
+                    100%
+                </div>
+                <p class="text-xl font-bold relative z-10 mb-4 inline-block px-8 py-3 glass-pill text-white shadow-xl">
+                    기존 기수 100% 29일 완주 🏃
+                </p>
+                <p class="text-lg font-medium text-white/70 relative z-10">단 한 명의 낙오자도 없었던 데이터가 증명합니다.</p>
+            </div>
+        </section>
+
+        <!-- 12. Alumni (Slide 13) -->
+        <section class="py-20 px-8">
+            <div class="max-w-[800px] mx-auto text-center">
+                <h2 class="text-4xl font-black mb-2 flex items-center justify-center gap-2">29일로 끝? <span class="text-primary-container">NO.</span></h2>
+                <p class="font-bold text-secondary mb-12 tracking-widest">ACTS29 이그니션 시동걸기</p>
+
+                <div class="flex flex-col items-center mb-12">
+                    <div class="w-px h-16 bg-outline-variant/50"></div>
+                    <div class="w-16 h-16 glass-circle flex items-center justify-center -mt-2 text-2xl z-10">🚀</div>
+                    <div class="font-bold text-on-surface mt-4 glass-pill px-6 py-2 shadow-sm text-sm">실행하는 모임</div>
+                </div>
+
+                <div class="glass-card p-10 border-2 border-primary-container/20">
+                    <h3 class="text-2xl font-bold mb-2">The Founders Club</h3>
+                    <p class="text-secondary text-sm font-medium mb-6">검증된 실행가들만의 프라이빗 커뮤니티 (Alumni)</p>
+                    <span class="inline-block glass-pill text-primary-container px-5 py-2 text-sm font-bold border-[rgba(0,196,180,0.3)] bg-[rgba(0,196,180,0.1)] hover:bg-[rgba(0,196,180,0.2)] transition-colors cursor-default">지속적인 사업 확장과 네트워킹</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. FAQ (Slide 15) -->
+        <section id="faq" class="py-32 px-8">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-4xl font-black text-on-surface mb-12 text-center">자주 묻는 질문</h2>
+                <div class="space-y-4">
+                    <details class="group glass-card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+                        <summary class="flex justify-between items-center font-bold text-lg list-none outline-none text-on-surface">
+                            그래서... 무엇을 한다는 건가요?
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary-container">expand_more</span>
+                        </summary>
+                        <p class="mt-6 text-secondary leading-relaxed font-medium bg-surface/50 p-6 rounded-xl">
+                            처음부터 자기 사업을 해낸다는 것은 너무나 힘든 일입니다. 혼자서는 해보기 힘든 아이디어를 전문가의 코치와 동료들의 응원 아래 "시도" 해보는 한 달 프로그램입니다. 아이디어를 실제 상품으로까지 발전시켜 보세요!
+                        </p>
+                    </details>
+                    <details class="group glass-card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+                        <summary class="flex justify-between items-center font-bold text-lg list-none outline-none text-on-surface">
+                            아이템은 상관 없나요?
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary-container">expand_more</span>
+                        </summary>
+                        <p class="mt-6 text-secondary leading-relaxed font-medium bg-surface/50 p-6 rounded-xl">
+                            네! 아이템의 제약은 두지 않습니다. 다만 불법 또는 반사회적 사업은 함께할 수 없습니다. 시도, 실패, 회고하며 점화하는 데 힘을 실어드립니다.
+                        </p>
+                    </details>
+                    <details class="group glass-card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+                        <summary class="flex justify-between items-center font-bold text-lg list-none outline-none text-on-surface">
+                            얼마나 걸리나요? 매일 숙제가 있나요?
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary-container">expand_more</span>
+                        </summary>
+                        <p class="mt-6 text-secondary leading-relaxed font-medium bg-surface/50 p-6 rounded-xl">
+                            하루 정해진 양은 없습니다. 주 시작(ACTS데이)에 계획하고 주중에는 본인 일정에 맞춰 자율 수행합니다. 가이드와 동기부여가 동반됩니다.
+                        </p>
+                    </details>
+                    <details class="group glass-card p-6 cursor-pointer hover:shadow-lg transition-shadow">
+                        <summary class="flex justify-between items-center font-bold text-lg list-none outline-none text-on-surface">
+                            부업 강의 인가요?
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary-container">expand_more</span>
+                        </summary>
+                        <p class="mt-6 text-secondary leading-relaxed font-medium bg-surface/50 p-6 rounded-xl">
+                            저희는 강의가 아닙니다. 피봇팅 전문가가 '뚫어내는' 방법을 알려드리는 행동 공동체입니다. 수익 창출만이 유일한 목표인 곳은 아닙니다!
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. Final CTA (Slide 14 repeated) -->
+        <section class="py-32 px-8">
+            <div class="max-w-[800px] mx-auto glass-card p-12 lg:p-20 text-center shadow-2xl pb-40">
+                <h2 class="text-3xl md:text-4xl font-black mb-8">당신의 인생을 바꿀 29일</h2>
+                <div class="text-lg text-outline-variant line-through mb-2 font-medium">정가: 250,000원</div>
+                <div class="text-4xl md:text-5xl font-black text-on-surface mb-8">얼리버드 200,000원</div>
+                <p class="text-secondary font-medium mb-10">90% 이상 참여시 보증금 5만원 100% 환급</p>
+                <div class="relative inline-block w-full max-w-md group mt-4">
+                    <div class="absolute inset-3 bg-[#00c4b4] rounded-[3rem] blur-[24px] opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
+                    <button onclick="handleCTAClick(event)" class="relative z-10 w-full glass px-10 py-6 font-bold text-2xl text-on-surface hover:-translate-y-1 transition-transform bg-[rgba(255,255,255,0.2)]">
+                        지금 바로 티켓 확보하기
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Tally Link CTA Script & Logic restored from gen2 -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        function getABGroup() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paramGroup = urlParams.get('group');
+            if (paramGroup === 'A' || paramGroup === 'B') {
+                localStorage.setItem('acts29_ab_group', paramGroup);
+                return paramGroup;
+            }
+            let group = localStorage.getItem('acts29_ab_group');
+            if (group === 'A' || group === 'B') return group;
+            group = Math.random() < 0.5 ? 'A' : 'B';
+            localStorage.setItem('acts29_ab_group', group);
+            return group;
+        }
+
+        const abGroup = getABGroup();
+
+        function handleCTAClick(e) {
+            e.preventDefault();
+            // Restored from git commit 64bff18b5b19be65f374506d8197c618c938b344
+            var url = abGroup === 'A'
+                ? 'https://tally.so/r/lbd4YN'
+                : 'https://tally.so/r/VL5xbM';
+
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

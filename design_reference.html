@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ACTS29 | 당신의 아이디어를 29일 만에 현실로</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "on-secondary": "#ffffff",
+                "surface-tint": "#006a61",
+                "tertiary-fixed-dim": "#e7c403",
+                "surface": "#f7f9ff",
+                "secondary-fixed-dim": "#bdc7dc",
+                "error-container": "#ffdad6",
+                "surface-variant": "#d6e4f7",
+                "primary-fixed-dim": "#3edccc",
+                "on-primary-fixed": "#00201d",
+                "surface-container-high": "#dbe9fd",
+                "on-error-container": "#93000a",
+                "tertiary-fixed": "#ffe167",
+                "on-primary-container": "#004b44",
+                "on-secondary-fixed": "#121c2c",
+                "on-tertiary-fixed-variant": "#544600",
+                "on-surface": "#0f1d2a",
+                "surface-container-highest": "#d6e4f7",
+                "tertiary": "#6f5d00",
+                "primary": "#006a61",
+                "on-tertiary-container": "#4e4100",
+                "surface-bright": "#f7f9ff",
+                "on-tertiary-fixed": "#221b00",
+                "primary-fixed": "#63f9e8",
+                "surface-container": "#e4efff",
+                "on-primary-fixed-variant": "#005049",
+                "on-secondary-container": "#596376",
+                "outline": "#6b7a77",
+                "secondary-fixed": "#d9e3f9",
+                "on-background": "#0f1d2a",
+                "outline-variant": "#bacac6",
+                "secondary-container": "#d6e0f6",
+                "inverse-on-surface": "#e9f1ff",
+                "on-secondary-fixed-variant": "#3d4759",
+                "on-primary": "#ffffff",
+                "inverse-surface": "#243240",
+                "on-error": "#ffffff",
+                "inverse-primary": "#3edccc",
+                "surface-container-low": "#eef4ff",
+                "background": "#f7f9ff",
+                "error": "#ba1a1a",
+                "tertiary-container": "#ccad00",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#3c4a47",
+                "secondary": "#555f71",
+                "surface-dim": "#cddbee",
+                "on-tertiary": "#ffffff",
+                "primary-container": "#00c4b4"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#F7F9FF]/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-8 h-20 max-w-[1440px] mx-auto">
+<div class="text-2xl font-black tracking-tighter text-[#0F1D2A]">ACTS29</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-[#0F1D2A] font-medium hover:text-[#00C4B4] transition-all" href="#">타임라인</a>
+<a class="text-[#0F1D2A] font-medium hover:text-[#00C4B4] transition-all" href="#">혜택</a>
+<a class="text-[#0F1D2A] font-medium hover:text-[#00C4B4] transition-all" href="#">멘토</a>
+<a class="text-[#0F1D2A] font-medium hover:text-[#00C4B4] transition-all" href="#">FAQ</a>
+</div>
+<button class="bg-primary-container text-white px-6 py-2.5 rounded-lg font-semibold active:scale-95 transform transition-all hover:opacity-90">지금 참여하기</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="pt-48 pb-32 px-8">
+<div class="max-w-[1440px] mx-auto grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<span class="inline-block bg-tertiary-container text-on-tertiary-container px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Limited intake 08</span>
+<h1 class="text-[3.5rem] leading-[1.1] font-black tracking-tight text-on-surface">
+                    당신의 아이디어를<br/>
+<span class="text-primary-container">29일 만에</span> 현실로.
+                </h1>
+<p class="text-body-lg text-secondary text-lg leading-relaxed max-w-lg">
+                    멈춰있는 아이디어에 추진력을 더하세요. ACTS29는 기획부터 런칭까지, 속도와 퀄리티를 동시에 잡는 가장 완벽한 4주를 선사합니다.
+                </p>
+<div class="flex gap-4">
+<button class="bg-primary-container text-on-primary px-8 py-4 rounded-xl font-bold text-lg shadow-sm hover:opacity-90 transition-all flex items-center gap-2">
+                        29일 카운트다운 시작
+                        <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+<button class="bg-surface-container-low text-on-surface-variant px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-high transition-all">
+                        커리큘럼 보기
+                    </button>
+</div>
+</div>
+<div class="relative">
+<div class="rounded-3xl overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+<img class="w-full h-[500px] object-cover" data-alt="Modern collaborative workspace with young professionals working on laptops with high-energy focused expressions and minimalist industrial interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABjnE6P3Io4fvJZBm5Vy0o4Whz3BUZj8I_222bp55UAk4-7Y620OxfIOPix0uLNlrulo2FPA3DYVmfE5TzSiRtc4vb5TZ-HbIplLlUUXadpFctxbqXFafhxNoBc6iKr2FtZ3ma3MB5op7nPuHYPQ0ygED3IYKkLS11_-srY7iesTmR5VVPoUZMBKA9vXQSn3mLcubCX4NMEpY65sJu1Rs4-BI60cwevWvA3HcV8XcEfovWijEbd4mXGDPPVcoqooMhlraa6xtuc3dr"/>
+</div>
+<div class="absolute -bottom-10 -left-10 bg-white p-6 rounded-2xl shadow-xl space-y-2 max-w-xs">
+<div class="flex items-center gap-2 text-primary-container font-bold">
+<span class="material-symbols-outlined">trending_up</span>
+<span>Velocity Boost</span>
+</div>
+<p class="text-sm text-secondary">일반 프로젝트 대비 4배 빠른 실행 속도를 경험하세요.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Performance Metrics -->
+<section class="bg-surface-container-low py-20 px-8">
+<div class="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+<div class="space-y-2">
+<div class="text-4xl font-black text-on-surface">100%</div>
+<div class="text-sm font-semibold text-secondary uppercase tracking-widest">수료율</div>
+</div>
+<div class="space-y-2">
+<div class="text-4xl font-black text-on-surface">250+</div>
+<div class="text-sm font-semibold text-secondary uppercase tracking-widest">런칭 프로젝트</div>
+</div>
+<div class="space-y-2">
+<div class="text-4xl font-black text-on-surface">1.2K</div>
+<div class="text-sm font-semibold text-secondary uppercase tracking-widest">커뮤니티 멤버</div>
+</div>
+<div class="space-y-2">
+<div class="text-4xl font-black text-on-surface">29Days</div>
+<div class="text-sm font-semibold text-secondary uppercase tracking-widest">평균 런칭 기간</div>
+</div>
+</div>
+</section>
+<!-- Velocity (Bento Grid) -->
+<section class="py-32 px-8">
+<div class="max-w-[1440px] mx-auto">
+<div class="mb-16">
+<h2 class="text-headline-lg text-4xl font-black text-on-surface">속도를 위한 설계</h2>
+<p class="text-secondary mt-4">단순한 강의가 아닌, 당신의 성장을 위한 고밀도 압축 엔진입니다.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-lowest p-10 rounded-[2rem] border border-outline-variant/10 flex flex-col justify-between min-h-[400px]">
+<div class="space-y-4">
+<div class="w-12 h-12 bg-primary-container/10 text-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<h3 class="text-2xl font-bold">AI 워크플로우 최적화</h3>
+<p class="text-secondary leading-relaxed">최신 AI 툴을 활용하여 코딩과 디자인, 마케팅의 병목 현상을 제거합니다. 핵심 기능 구현에만 집중하세요.</p>
+</div>
+<div class="flex -space-x-4 mt-8">
+<img class="w-12 h-12 rounded-full border-4 border-white object-cover" data-alt="Portrait of professional developer in creative office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQBfhUPVUrnntJgYEPCtgeeMsdjcspwU8VoVIDIL1mlGO8zOf3eY5ICn5OVCXMpqkjTbkTuVztunIe8tRN87-4x7U7S3tO5Uz1eaqHjvpZXOxVwx4SKJLqjCilixfxwtw6UPQ8hAYk5K7THH8D062VPYAI7zOzmBEtetRTUbQm4vJa2TdxdXWK3_dd_ZduKFg4eoZOiUlvr_ZaWrsXwSHiaynyNEeDKZrD8SGoUG-HW5OfCV9SYxlX7N4lG83Mb3LmvLLg5fHq8hUd"/>
+<img class="w-12 h-12 rounded-full border-4 border-white object-cover" data-alt="Portrait of smiling female designer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAclAtXBA8JYk-5k74b1XtS6p37ds_D9kEIithqGyHKMaV4hGfNKs6T7kgskrmycOHnGOfDBR9fZfvYlsJWP2DIRreD3CYa1V7vdFBPMh7HqPvqV4Huq2ZXsa4X_whc36yBpikH3M2-rttNKA4CdzeppK-HfJvXX6QQxbmj7egxt0SMaIrLus9S8n9VnhkKK5aypkogfusJfjif-MgAPHJ8xlVTtP8umdok-yrVPHpJ2r-4jSrCD4BsMdeRb8e1pEW1qBjy-dNuHSG"/>
+<img class="w-12 h-12 rounded-full border-4 border-white object-cover" data-alt="Portrait of tech entrepreneur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPO7tUG7Ujc_LrdS4sv85gsBbcaIgv72B6adPzL0B-6x5C4XRe4sQdpqHE5OQD0tnf0KyU-NHdIWQ_O0jtWxFVSq6lxoe4mCndeWQwX-QktHB6Kx74iZE_J7Q_8d6kWd2iomZjck8T4rou3cUqI_eIpP1C3YwqqnJPPLP1FDkxu1CE6IcCE7l9VL0b0vtppuOeZ6aBg6T5KiDqSIasTc8YI2dc9YjyUw1ZqIYKr0BeaV0XKDqRCrZNP1ltU7aJ6AlzoK_eYXsab4dO"/>
+<div class="w-12 h-12 rounded-full bg-surface-container border-4 border-white flex items-center justify-center text-xs font-bold text-on-surface">+120</div>
+</div>
+</div>
+<div class="bg-primary-container p-10 rounded-[2rem] text-on-primary flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<h3 class="text-2xl font-bold">리얼타임 네트워킹</h3>
+<p class="opacity-80">같은 속도로 달리는 동료들과 실시간 피드백을 주고받으며 자극을 얻습니다.</p>
+</div>
+<span class="material-symbols-outlined text-6xl opacity-20 self-end">bolt</span>
+</div>
+<div class="bg-surface-container-highest p-10 rounded-[2rem] flex flex-col justify-between">
+<div class="space-y-4">
+<h3 class="text-2xl font-bold">압축 커리큘럼</h3>
+<p class="text-on-surface-variant">불필요한 이론은 걷어내고, 바로 실행 가능한 액션 아이템만 전달합니다.</p>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant/20 flex justify-between items-end">
+<span class="text-4xl font-black">29</span>
+<span class="text-sm font-bold uppercase">Actions</span>
+</div>
+</div>
+<div class="md:col-span-2 bg-[#0F1D2A] p-10 rounded-[2rem] text-white overflow-hidden relative">
+<div class="relative z-10 space-y-4">
+<h3 class="text-2xl font-bold">글로벌 런칭 가이드</h3>
+<p class="text-slate-400 max-w-sm">국내를 넘어 글로벌 시장 런칭을 위한 Product Hunt 등록, 해외 결제 연동까지 가이드합니다.</p>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10 transform translate-x-10 translate-y-10">
+<span class="material-symbols-outlined text-[15rem]">public</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 29-Day System (Timeline) -->
+<section class="py-32 px-8 bg-surface">
+<div class="max-w-[1440px] mx-auto">
+<h2 class="text-headline-lg text-4xl font-black text-on-surface mb-20 text-center">29-Day System</h2>
+<div class="relative space-y-12 before:absolute before:left-[24px] md:before:left-1/2 before:top-0 before:h-full before:w-[2px] before:bg-primary-container/20">
+<!-- Week 1 -->
+<div class="relative flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 md:pr-16 text-left md:text-right mb-4 md:mb-0">
+<div class="text-primary-container font-black text-xl mb-1">Week 01</div>
+<h4 class="text-2xl font-bold">아이디어 검증</h4>
+<p class="text-secondary mt-2">가장 빠르게 시장의 목소리를 듣는 법. 핵심 가설을 설정하고 MVP의 범위를 확정합니다.</p>
+</div>
+<div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 bg-primary-container text-on-primary rounded-full flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div class="md:w-1/2 md:pl-16"></div>
+</div>
+<!-- Week 2 -->
+<div class="relative flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 md:pr-16"></div>
+<div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 bg-primary-container text-on-primary rounded-full flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined">architecture</span>
+</div>
+<div class="md:w-1/2 md:pl-16 text-left mb-4 md:mb-0">
+<div class="text-primary-container font-black text-xl mb-1">Week 02</div>
+<h4 class="text-2xl font-bold">고속 프로토타이핑</h4>
+<p class="text-secondary mt-2">AI와 노코드 툴을 결합하여 디자인과 기본 기능을 구현합니다. 상상이 형체가 되는 시간입니다.</p>
+</div>
+</div>
+<!-- Week 3 -->
+<div class="relative flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 md:pr-16 text-left md:text-right mb-4 md:mb-0">
+<div class="text-primary-container font-black text-xl mb-1">Week 03</div>
+<h4 class="text-2xl font-bold">핵심 기능 고도화</h4>
+<p class="text-secondary mt-2">사용자 경험을 다듬고 실제 동작하는 시스템을 완성합니다. 멘토들의 1:1 기술 리뷰가 진행됩니다.</p>
+</div>
+<div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 bg-primary-container text-on-primary rounded-full flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div class="md:w-1/2 md:pl-16"></div>
+</div>
+<!-- Week 4 -->
+<div class="relative flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 md:pr-16"></div>
+<div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-12 h-12 bg-tertiary-container text-on-tertiary-container rounded-full flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div class="md:w-1/2 md:pl-16 text-left mb-4 md:mb-0">
+<div class="text-tertiary-container font-black text-xl mb-1">Week 04</div>
+<h4 class="text-2xl font-bold">런칭 및 확장</h4>
+<p class="text-secondary mt-2">드디어 세상에 선보입니다. 런칭 마케팅 전략과 함께 지속 가능한 성장 플랜을 수립합니다.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Success Stories (Slider) -->
+<section class="py-32 overflow-hidden bg-surface-container-low">
+<div class="max-w-[1440px] mx-auto px-8 mb-12">
+<h2 class="text-headline-lg text-4xl font-black text-on-surface">함께 만든 성공 스토리</h2>
+</div>
+<div class="flex gap-6 animate-marquee whitespace-nowrap">
+<!-- Story Card 1 -->
+<div class="min-w-[400px] bg-surface-container-lowest p-8 rounded-3xl shadow-sm inline-block">
+<div class="text-tertiary-container mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-lg font-medium text-on-surface whitespace-normal mb-6">"29일 만에 내 서비스를 런칭할 수 있었던 건 기적이었습니다. 실행력이 무엇인지 제대로 배웠습니다."</p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary-container/20 rounded-full"></div>
+<div class="text-sm">
+<div class="font-bold">이승우</div>
+<div class="text-secondary text-xs">SaaS 빌더, 8기 수료생</div>
+</div>
+</div>
+</div>
+<!-- Story Card 2 -->
+<div class="min-w-[400px] bg-surface-container-lowest p-8 rounded-3xl shadow-sm inline-block">
+<div class="text-tertiary-container mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-lg font-medium text-on-surface whitespace-normal mb-6">"막연하게만 느껴졌던 AI 활용법을 실전에 바로 적용할 수 있었습니다. 최고의 커리큘럼이에요."</p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary-container/20 rounded-full"></div>
+<div class="text-sm">
+<div class="font-bold">박지은</div>
+<div class="text-secondary text-xs">UX 디자이너, 7기 수료생</div>
+</div>
+</div>
+</div>
+<!-- Duplicate for infinite effect -->
+<div class="min-w-[400px] bg-surface-container-lowest p-8 rounded-3xl shadow-sm inline-block">
+<p class="text-lg font-medium text-on-surface whitespace-normal mb-6">"사이드 프로젝트로만 머물던 일이 이제는 매출을 일으키는 비즈니스가 되었습니다."</p>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary-container/20 rounded-full"></div>
+<div class="text-sm">
+<div class="font-bold">최현석</div>
+<div class="text-secondary text-xs">마케터, 8기 수료생</div>
+</div>
+</div>
+</div>
+</div>
+<style>
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .animate-marquee {
+                animation: marquee 30s linear infinite;
+                width: max-content;
+            }
+        </style>
+</section>
+<!-- Mentors -->
+<section class="py-32 px-8">
+<div class="max-w-[1440px] mx-auto">
+<h2 class="text-headline-lg text-4xl font-black text-on-surface mb-16">경험을 나누는 멘토진</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="group">
+<div class="rounded-2xl overflow-hidden aspect-[3/4] mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Professional portrait of female architect with friendly confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE3Q9U9ahwpqbCo2xpzs4R8c5ndqf_CkhIRH-fTWBFp_jjvuhL11qGedHF0SibNoTX-sBfx7UlQVbN4hWXUF-cfu8dT2nWiP5OVKV2fyOg7o2LAMYwhzh4-prrWryEVEtIvr8ysAnj-PbTWZb2b1egXmVfP4WsgA9QZlt3Yn3OHEMx1v3ruoPnlXH6eJ9b14P0hlwsLBK1PUf89fvYmuqXYSw6url6KmLEzilPBgTW80pKhN-UPt4TdtS57ZjtRDj3w2YoS_YgeEEa"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+<div class="text-white">
+<div class="font-bold text-lg">이현주</div>
+<div class="text-sm opacity-80">전략 제품 아키텍트</div>
+</div>
+</div>
+</div>
+</div>
+<div class="group">
+<div class="rounded-2xl overflow-hidden aspect-[3/4] mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Candid portrait of male system engineer in tech office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZM6AsGT219nTjyfLyEOL8b7dWzHQTB_nRqj-E60W7xTd8Nrbdd_C-QRFQdflaKVS4Wsv3rjUc_Z7YEoyn8k59Ns1717oBvi5RefYBkB31gFtZkggp2vJDupn45wlO2znFHdQ_Tr4afgepjgHDnly4Fl2gkgiqut8_2AbSbXSoE_sUKV8NZQO3-YmmAYTaARftUxwKTSqX7H-edSWqTOl-vVyz5nmplJdcLwgGtzLhXEPpShEvz-MA4oCDV7Q_KtbvzrSCoCZEE-Jh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+<div class="text-white">
+<div class="font-bold text-lg">김동민</div>
+<div class="text-sm opacity-80">리드 시스템 엔지니어</div>
+</div>
+</div>
+</div>
+</div>
+<div class="group">
+<div class="rounded-2xl overflow-hidden aspect-[3/4] mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Portrait of senior product manager in corporate setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdD1NJDxf5ztBOqwv61DAJm_Xx3ioCM8ul66h1i1ZuVaWPh7w6hdU0Y8dJKgNimInTWEg_iiDk3HxLir-weld34OLch36MdvJAcYJrjUnq4uld2bMlryxpcYMvtoybxJ6SQrQMxPbEI0SMh3qBeRW11WDlAt-8DiguTqYY4u74g5PFq5wUiiP66F130yEGH6pdoI_giuo9TcOZUq6-deST2KbhrumlviO-Lsqf0KvTi1-JOE_TdUUkSpOdzsJZileOoWZnchjmuuDa"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+<div class="text-white">
+<div class="font-bold text-lg">정성우</div>
+<div class="text-sm opacity-80">그로스 매니저</div>
+</div>
+</div>
+</div>
+</div>
+<div class="group">
+<div class="rounded-2xl overflow-hidden aspect-[3/4] mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern professional woman in creative workplace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtmo1xt-E9E39GavfJvpZJxZc5Uuk8pLEsPrZ4uBdGTKk2t8O5GSQ44b19r1QaKcXzuzFQmWDC4c0kud36RaOyVyF2GEA3MK_S2brqI0wivpIvK6sRy1EP-OS5Z241VTWiG-PVeQo1DCOIE1RlOIMndH6rytTyN69Ogao0vHZrHZh12WK39OH0SdzTP7gQlLU8iEjOeD-rbnFnyR_PMNRzfPtcuVL5VhFqgNoaQR8dWquY7Tvm95iooehNnNyliCJsSDGdt3g5w0jP"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+<div class="text-white">
+<div class="font-bold text-lg">한지나</div>
+<div class="text-sm opacity-80">AI 솔루션 스페셜리스트</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ -->
+<section class="py-32 px-8 bg-surface-container-low">
+<div class="max-w-3xl mx-auto">
+<h2 class="text-headline-lg text-4xl font-black text-on-surface mb-12 text-center">자주 묻는 질문</h2>
+<div class="space-y-4">
+<details class="group bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 cursor-pointer">
+<summary class="flex justify-between items-center font-bold text-lg list-none">
+                        비전공자도 가능한가요?
+                        <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="mt-4 text-secondary leading-relaxed">네, 충분히 가능합니다. ACTS29는 기술적인 난이도보다 '실행'에 초점을 맞추고 있으며, 비전공자분들도 AI 툴과 노코드 솔루션을 활용해 충분히 성과를 낼 수 있도록 돕습니다.</p>
+</details>
+<details class="group bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 cursor-pointer">
+<summary class="flex justify-between items-center font-bold text-lg list-none">
+                        29일 이후에는 무엇을 하나요?
+                        <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="mt-4 text-secondary leading-relaxed">수료 후에도 ACTS29 알럼나이 커뮤니티에 소속되어 지속적인 네트워킹과 협업 기회를 얻게 됩니다. 또한 후속 단계인 스케일업 과정에 참여하실 수도 있습니다.</p>
+</details>
+<details class="group bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 cursor-pointer">
+<summary class="flex justify-between items-center font-bold text-lg list-none">
+                        시간 투입은 얼마나 해야 하나요?
+                        <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="mt-4 text-secondary leading-relaxed">주간 세션 외에 개인 프로젝트 실행을 위해 주당 최소 10~15시간 정도의 몰입을 권장드립니다. 속도가 생명인 만큼 집중적인 에너지가 필요합니다.</p>
+</details>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-40 px-8 bg-[#0F1D2A] relative overflow-hidden text-center">
+<div class="max-w-[1440px] mx-auto relative z-10">
+<h2 class="text-[3rem] md:text-[4rem] font-black text-white leading-tight mb-8">
+                당신의 29일 카운트다운이<br/>지금 시작됩니다.
+            </h2>
+<p class="text-slate-400 text-xl mb-12 max-w-2xl mx-auto">
+                아이디어가 고민으로 남지 않도록. 실행의 가치를 아는 당신을 기다립니다.
+            </p>
+<button class="bg-primary-container text-on-primary-container px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-xl">
+                참가 신청하기 (선착순 마감)
+            </button>
+</div>
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-container rounded-full blur-[160px]"></div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface dark:bg-[#0F1D2A] border-t border-slate-200/10 py-12 px-8">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1440px] mx-auto gap-4">
+<div class="text-lg font-bold text-[#0F1D2A] dark:text-white">ACTS29</div>
+<div class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm tracking-wide">
+                © 2024 ACTS29. Kinetic Editorial Execution.
+            </div>
+<div class="flex gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#CCAD00] transition-colors" href="#">개인정보 처리방침</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#CCAD00] transition-colors" href="#">문의하기</a>
+</div>
+</div>
+</footer>
+</body></html>
