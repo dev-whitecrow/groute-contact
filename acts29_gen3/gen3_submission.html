@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ACTS29 3기 지원하기</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Pretendard', 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Advanced Apple-style Glassmorphism from acts29_gen3.html */
+        .glass,
+        .glass-card,
+        .glass-dark {
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            box-shadow:
+                inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+                inset -1px -1px 5px rgba(255, 255, 255, 0.3),
+                0 0 25px rgba(255, 255, 255, 0.35),
+                0 20px 40px rgba(15, 29, 42, 0.05);
+        }
+
+        .glass {
+            background: rgba(247, 249, 255, 0.1);
+            border-radius: 2rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3rem;
+        }
+
+        .glass-dark {
+            background: rgba(15, 29, 42, 0.25);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow:
+                inset 3px 3px 6px rgba(255, 255, 255, 0.3),
+                inset -1px -1px 4px rgba(255, 255, 255, 0.1),
+                0 0 25px rgba(255, 255, 255, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 3rem;
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+            box-shadow:
+                inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.2),
+                0 4px 15px rgba(15, 29, 42, 0.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00C4B4, #006A61);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-button {
+            position: relative;
+        }
+
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        .animate-blob {
+            animation: blob 10s infinite alternate ease-in-out;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        /* Form input custom styles */
+        .input-glass {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        .input-glass:focus {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #00c4b4;
+            box-shadow: 0 0 0 4px rgba(0, 196, 180, 0.1);
+            outline: none;
+        }
+        
+        /* Custom Checkbox & Radio */
+        .checkbox-glass {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 0.25rem;
+            border: 1.5px solid rgba(15, 29, 42, 0.2);
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #00c4b4;
+        }
+        .checkbox-glass:focus {
+            --tw-ring-color: #00c4b4;
+        }
+        .radio-glass {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 1.5px solid rgba(15, 29, 42, 0.2);
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #00c4b4;
+        }
+        .radio-glass:focus {
+            --tw-ring-color: #00c4b4;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f7f9ff",
+                        "on-surface": "#0f1d2a",
+                        "primary": "#006a61",
+                        "primary-container": "#00c4b4",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#6f5d00",
+                        "tertiary-container": "#ccad00",
+                        "secondary": "#555f71",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#eef4ff",
+                        "surface-container": "#e4efff",
+                        "surface-container-high": "#dbe9fd",
+                        "outline-variant": "#bacac6"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[#eef4ff] text-on-surface antialiased relative min-h-screen overflow-x-hidden">
+    <!-- Ambient Glassmorphism Background -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00c4b4] rounded-full mix-blend-multiply opacity-10 filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[60vw] h-[60vw] bg-[#ccad00] rounded-full mix-blend-multiply opacity-10 filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[70vw] h-[70vw] bg-[#bacac6] rounded-full mix-blend-multiply opacity-20 filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 glass rounded-none border-t-0 border-x-0">
+        <div class="flex justify-between items-center px-8 h-20 max-w-[800px] mx-auto">
+            <a href="acts29_gen3.html" class="flex items-center gap-2 text-on-surface hover:text-primary-container transition-colors font-bold">
+                <span class="material-symbols-outlined">arrow_back</span>
+                돌아가기
+            </a>
+            <div class="text-2xl font-black tracking-tighter text-on-surface">ACTS29 3기</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-[800px] mx-auto pt-32 pb-32 px-4 md:px-8">
+        <div class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight mb-4">
+                나의 꿈을 현실로<br />
+                <span class="gradient-text">'함께'</span> 만들어 가는 곳
+            </h1>
+            <p class="text-secondary font-medium text-lg max-w-md mx-auto leading-relaxed">
+                ACTS29에 지원해 주셔서 감사합니다.<br />
+                선착순 20명 마감입니다! 신청하시면 절대 후회하시지 않도록 저희가 준비하겠습니다.
+            </p>
+        </div>
+
+        <form id="submissionForm" action="https://docs.google.com/forms/d/e/1FAIpQLSd8na3D_k_mP8mkQsCmhd_q65QkcLoZYtQWOi7yOi1LNh8Odg/formResponse" method="POST" target="hidden_iframe" onsubmit="handleFormSubmit()">
+            
+            <!-- 1. 기본 정보 -->
+            <div class="glass-card p-8 md:p-12 mb-10">
+                <div class="flex items-center gap-3 mb-8 pb-4 border-b border-outline-variant/30">
+                    <div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container font-black">1</div>
+                    <h2 class="text-2xl font-black text-on-surface">기본 정보</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">성함 <span class="text-red-500">*</span></label>
+                        <input type="text" name="entry.102086164" required class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="홍길동" />
+                    </div>
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">휴대폰 번호 <span class="text-red-500">*</span></label>
+                        <input type="text" name="entry.607747121" required class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="01012345678" />
+                    </div>
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">프로그램을 참여할 개인 SNS ID <span class="text-red-500">*</span></label>
+                        <p class="text-sm text-secondary mb-2 font-medium">Threads / Instagram / LinkedIn / X 중 택 1</p>
+                        <input type="text" name="entry.1551352946" required class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="@username" />
+                    </div>
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">디스코드 계정 <span class="text-red-500">*</span></label>
+                        <p class="text-sm text-secondary mb-2 font-medium">없으신 경우 <a href="https://discord.com/register?redirect_to=%2Fchannels%2F%40me" target="_blank" class="text-primary-container underline underline-offset-2">여기서 생성</a> 후 기입해주세요.</p>
+                        <input type="text" name="entry.1424903395" required class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="username#1234" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 아이디어 및 동기 -->
+            <div class="glass-card p-8 md:p-12 mb-10">
+                <div class="flex items-center gap-3 mb-8 pb-4 border-b border-outline-variant/30">
+                    <div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary-container font-black">2</div>
+                    <h2 class="text-2xl font-black text-on-surface">도전 이야기</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">간략한 자기소개 <span class="text-red-500">*</span></label>
+                        <textarea name="entry.1157877019" required rows="3" class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="자신을 자유롭게 소개해주세요."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">어떤 아이디어를 구체화하고 싶은지 알려주세요. <span class="text-red-500">*</span></label>
+                        <textarea name="entry.1753962664" required rows="4" class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="구체적이지 않아도 괜찮습니다."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">이 아이디어를 실행해보고 싶다는 결정적인 계기(사건)가 있었나요? <span class="text-red-500">*</span></label>
+                        <textarea name="entry.1227641092" required rows="3" class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="아이디어를 떠올리게 된 순간이나 경험을 들려주세요."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">이 프로그램에 어떤 부분을 기대하고 있나요? <span class="text-red-500">*</span></label>
+                        <p class="text-sm text-secondary mb-2 font-medium">프로그램 참여에 대한 다짐도 함께 적어주세요!</p>
+                        <textarea name="entry.147204330" required rows="3" class="w-full input-glass px-4 py-3 text-on-surface placeholder:text-secondary/50" placeholder="기대하는 바와 각오를 자유롭게 적어주세요."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 일정 확인 -->
+            <div class="glass-card p-8 md:p-12 mb-10">
+                <div class="flex items-center gap-3 mb-8 pb-4 border-b border-outline-variant/30">
+                    <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-600 font-black">3</div>
+                    <h2 class="text-2xl font-black text-on-surface">일정 확인</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <label class="block text-on-surface font-bold mb-3">ACTS데이 필수 세션에 모두 참여할 수 있으신가요? <span class="text-red-500">*</span></label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="entry.633148802" value="네, 가능합니다." required class="radio-glass" />
+                            <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">네, 가능합니다.</span>
+                        </label>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-on-surface font-bold mb-2">빠지는 날짜가 있다면 기입해 주세요. (선택 사항)</label>
+                        <input type="date" name="entry.2020225064" class="w-full md:w-1/2 input-glass px-4 py-3 text-on-surface" />
+                    </div>
+
+                    <div class="bg-white/30 p-6 rounded-2xl border border-white/40 shadow-sm">
+                        <h3 class="font-bold text-lg mb-4 text-on-surface">인터뷰 일정 선택</h3>
+                        <p class="text-sm text-secondary mb-4 font-medium">선발을 위한 짧은 인터뷰 일정을 선택해주세요.</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold mb-1 text-on-surface">인터뷰 가능 날짜 (1순위) <span class="text-red-500">*</span></label>
+                                <input type="date" name="entry.549843075" required class="w-full input-glass px-4 py-3 text-on-surface" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-1 text-on-surface">인터뷰 가능 시간 (1순위) <span class="text-red-500">*</span></label>
+                                <input type="time" name="entry.45593343" required class="w-full input-glass px-4 py-3 text-on-surface" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 부가 정보 및 약관 동의 -->
+            <div class="glass-card p-8 md:p-12 mb-10">
+                <div class="flex items-center gap-3 mb-8 pb-4 border-b border-outline-variant/30">
+                    <div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-600 font-black">4</div>
+                    <h2 class="text-2xl font-black text-on-surface">마무리 및 동의</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- 유입 경로 -->
+                    <div>
+                        <label class="block text-on-surface font-bold mb-3">프로그램을 알게 된 경로 (중복 선택 가능)</label>
+                        <div class="grid md:grid-cols-2 gap-3 mb-3">
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" name="entry.737766394" value="ACTS29 인스타그램" class="checkbox-glass" />
+                                <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">ACTS29 인스타그램</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" name="entry.737766394" value="운영자 링크드인" class="checkbox-glass" />
+                                <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">운영자 링크드인</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" name="entry.737766394" value="운영자 스레드" class="checkbox-glass" />
+                                <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">운영자 스레드</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" name="entry.737766394" value="지인 소개 및 추천" class="checkbox-glass" />
+                                <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">지인 소개 및 추천</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" name="entry.737766394" value="EO 플래닛 콘텐츠" class="checkbox-glass" />
+                                <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">EO 플래닛 콘텐츠</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" name="entry.737766394" value="화이트크로우 뉴스레터" class="checkbox-glass" />
+                                <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">화이트크로우 뉴스레터</span>
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-3 mt-2">
+                            <label class="flex items-center gap-3 cursor-pointer shrink-0">
+                                <input type="checkbox" name="entry.737766394" value="__other_option__" class="checkbox-glass" id="otherCheckbox" onchange="toggleOtherInput()" />
+                                <span class="text-on-surface font-medium">기타</span>
+                            </label>
+                            <input type="text" name="entry.737766394.other_option_response" id="otherInput" class="w-full input-glass px-4 py-2 opacity-50 pointer-events-none transition-opacity" placeholder="기타 경로를 입력해주세요." />
+                        </div>
+                    </div>
+
+                    <!-- 추천인 -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-on-surface font-bold mb-2">추천인 성함 (선택)</label>
+                            <input type="text" name="entry.1184984738" class="w-full input-glass px-4 py-3 text-on-surface" />
+                        </div>
+                        <div>
+                            <label class="block text-on-surface font-bold mb-2">추천할 떠오르는 친구가 있나요?</label>
+                            <div class="flex gap-6 h-[46px] items-center">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="radio" name="entry.2044391916" value="예" class="radio-glass" />
+                                    <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">예</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="radio" name="entry.2044391916" value="아니오" class="radio-glass" />
+                                    <span class="text-on-surface font-medium group-hover:text-primary-container transition-colors">아니오</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-outline-variant/30 my-8" />
+
+                    <!-- 동의 사항 -->
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 glass rounded-2xl">
+                            <input type="checkbox" name="entry.1231890772" value="네, 동의합니다." required class="checkbox-glass mt-1 shrink-0" id="agree1" />
+                            <label for="agree1" class="text-sm font-medium text-on-surface cursor-pointer">
+                                <strong>[필수] 시장 검증 동의</strong><br/>
+                                본인의 SNS를 통해 시장 검증 프로그램을 진행하는 것에 동의하십니까?
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 glass rounded-2xl">
+                            <input type="checkbox" name="entry.1987900998" value="네, 동의합니다." required class="checkbox-glass mt-1 shrink-0" id="agree2" />
+                            <label for="agree2" class="text-sm font-medium text-on-surface cursor-pointer">
+                                <strong>[필수] 과제 수행 및 환급 규정 동의</strong><br/>
+                                프로그램이 진행되는 동안 과제가 주어집니다. 과제를 완료하지 않을 경우 주차별 프로그램 참여와 보증금 환급이 어렵습니다!
+                            </label>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 glass rounded-2xl">
+                            <input type="checkbox" name="entry.1507395991" value="네, 동의합니다." required class="checkbox-glass mt-1 shrink-0" id="agree3" />
+                            <label for="agree3" class="text-sm font-medium text-on-surface cursor-pointer">
+                                <strong>[필수] 이용 약관 및 개인정보 수집 이용 동의</strong><br/>
+                                <a href="https://www.notion.so/ACTS29-2c5c921eb6db8068b887d95af00a9ad6" target="_blank" class="text-primary-container hover:underline mt-1 inline-block">전체 내용 보기 (새 창)</a>
+                            </label>
+                        </div>
+
+                        <div class="p-4 glass rounded-2xl">
+                            <div class="mb-3">
+                                <strong class="text-sm block mb-1">초상권 및 활동 결과물 홍보 활용 동의</strong>
+                                <p class="text-xs text-secondary mb-3">홍보물 제작 및 공식 온라인 채널 업로드 목적으로 쓰이며 제3자에게 제공되지 않습니다. 동의를 거부하셔도 프로그램 참여에 불이익은 없습니다.</p>
+                            </div>
+                            <div class="flex gap-6">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="radio" name="entry.1854095058" value="네, 동의합니다." required class="radio-glass" />
+                                    <span class="text-sm font-medium group-hover:text-primary-container transition-colors">네, 동의합니다.</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="radio" name="entry.1854095058" value="아니오, 동의하지 않습니다." required class="radio-glass" />
+                                    <span class="text-sm font-medium group-hover:text-primary-container transition-colors">아니오</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="relative group mt-10 max-w-md mx-auto">
+                <div class="absolute inset-2 bg-[#00c4b4] rounded-[3rem] blur-[24px] opacity-40 group-hover:opacity-70 transition-all duration-500"></div>
+                <button type="submit" id="submitBtn" class="relative z-10 w-full glass px-12 py-5 font-extrabold text-2xl text-on-surface hover:-translate-y-1 transition-all flex justify-center items-center gap-3 bg-white/30 backdrop-blur-md border border-white/50 shadow-xl">
+                    지원서 제출하기
+                    <span class="material-symbols-outlined text-[1.8rem]">send</span>
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Success Modal Overlay -->
+    <div id="successModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm">
+        <div class="glass-card bg-surface p-10 max-w-sm w-full text-center relative border border-white/50 shadow-2xl animate-blob" style="animation-duration: 20s">
+            <div class="w-20 h-20 bg-primary-container/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="material-symbols-outlined text-4xl text-primary-container">check_circle</span>
+            </div>
+            <h3 class="text-2xl font-black text-on-surface mb-3">제출 완료!</h3>
+            <p class="text-secondary font-medium mb-8">지원서가 성공적으로 접수되었습니다.<br>합격자 발표는 메시지로 안내 드리겠습니다.</p>
+            <a href="acts29_gen3.html" class="inline-block w-full bg-primary-container text-on-surface font-bold py-4 rounded-2xl hover:bg-primary-container/90 transition-colors shadow-md">
+                홈으로 돌아가기
+            </a>
+        </div>
+    </div>
+
+    <!-- Hidden iframe to prevent Google Form redirect -->
+    <iframe name="hidden_iframe" id="hidden_iframe" class="hidden" onload="handleIframeLoad()"></iframe>
+
+    <script>
+        let submitted = false;
+        
+        function toggleOtherInput() {
+            const checkbox = document.getElementById('otherCheckbox');
+            const input = document.getElementById('otherInput');
+            if (checkbox.checked) {
+                input.classList.remove('opacity-50', 'pointer-events-none');
+                input.required = true;
+                input.focus();
+            } else {
+                input.classList.add('opacity-50', 'pointer-events-none');
+                input.required = false;
+                input.value = '';
+            }
+        }
+
+        function handleFormSubmit() {
+            submitted = true;
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">progress_activity</span> 제출 중...';
+            btn.classList.add('opacity-80', 'pointer-events-none');
+        }
+
+        function handleIframeLoad() {
+            if (submitted) {
+                const modal = document.getElementById('successModal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+    </script>
+</body>
+</html>
