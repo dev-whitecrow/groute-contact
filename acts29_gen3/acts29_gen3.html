@@ -244,49 +244,46 @@
     </nav>
     <div class="w-full">
         <!-- ======= 1단계: 히어로 (Hero) ======= -->
-        <section id="hero" class="relative pt-32 pb-16" style="min-height: 180vh;">
-            <!-- Sticky Text Block -->
-            <div class="sticky top-28 z-20 pointer-events-none">
-                <div class="max-w-[800px] mx-auto px-8 w-full">
-                    <div class="max-w-[600px] space-y-10 pointer-events-auto">
-                        <div class="space-y-6">
-                            <span
-                                class="inline-block glass-pill text-tertiary-container px-6 py-2.5 text-sm font-bold tracking-widest uppercase shadow-sm">ACTS
-                                29</span>
-                            <h1
-                                class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1] font-black tracking-tight text-on-surface drop-shadow-sm">
-                                실패의 두려움 없이,<br />
-                                29일 만에<br />
-                                <span class="gradient-text" id="typing-target"></span><span class="typing-cursor"></span>
-                            </h1>
-                            <p class="text-lg md:text-xl leading-relaxed text-secondary font-semibold max-w-[420px]">
-                                새로운 도전,<br />
-                                안전하게 시도해보는 커뮤니티
-                            </p>
+        <section id="hero" class="h-[160vh] md:h-[180vh] relative pt-32 pb-32">
+            <!-- Sticky Text -->
+            <div class="sticky top-32 max-w-[800px] mx-auto px-8 w-full z-20 pointer-events-none">
+                <div class="max-w-[600px] space-y-10 pointer-events-auto">
+                    <div class="space-y-6">
+                        <span
+                            class="inline-block glass-pill text-tertiary-container px-6 py-2.5 text-sm font-bold tracking-widest uppercase shadow-sm">ACTS
+                            29</span>
+                        <h1
+                            class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] leading-[1.1] font-black tracking-tight text-on-surface drop-shadow-sm">
+                            실패의 두려움 없이,<br />
+                            29일 만에<br />
+                            <span class="gradient-text" id="typing-target"></span><span class="typing-cursor"></span>
+                        </h1>
+                        <p class="text-lg md:text-xl leading-relaxed text-secondary font-semibold max-w-[420px]">
+                            새로운 도전,<br />
+                            안전하게 시도해보는 커뮤니티
+                        </p>
+                    </div>
+                    <div class="relative inline-block w-full md:w-auto group">
+                        <div
+                            class="absolute inset-2 bg-[#00c4b4] rounded-[3rem] blur-[24px] opacity-40 group-hover:opacity-70 group-hover:blur-[32px] transition-all duration-500">
                         </div>
-                        <div class="relative inline-block w-full md:w-auto group" id="hero-cta-btn">
-                            <div
-                                class="absolute inset-2 bg-[#00c4b4] rounded-[3rem] blur-[24px] opacity-40 group-hover:opacity-70 group-hover:blur-[32px] transition-all duration-500">
-                            </div>
-                            <button onclick="handleCTAClick(event)"
-                                class="relative z-10 w-full glass px-12 py-6 font-extrabold text-2xl text-on-surface hover:-translate-y-1 transition-all flex justify-center items-center gap-4 bg-white/30 backdrop-blur-md border border-white/50 shadow-xl">
-                                지금 신청하기
-                                <span class="material-symbols-outlined text-[1.8rem]">rocket_launch</span>
-                            </button>
-                        </div>
+                        <button onclick="handleCTAClick(event)"
+                            class="relative z-10 w-full glass px-12 py-6 font-extrabold text-2xl text-on-surface hover:-translate-y-1 transition-all flex justify-center items-center gap-4 bg-white/30 backdrop-blur-md border border-white/50 shadow-xl">
+                            지금 신청하기
+                            <span class="material-symbols-outlined text-[1.8rem]">rocket_launch</span>
+                        </button>
                     </div>
                 </div>
             </div>
-            <!-- Image: rises up from below, sticks just below CTA button area -->
-            <div class="sticky bottom-0 z-10 pt-[60vh] md:pt-[75vh]" style="top: calc(100vh - 56.25vw - 2rem); top: max(28rem, calc(100vh - min(450px, 56.25vw) - 4rem));">
-                <div class="max-w-[800px] mx-auto px-8 w-full">
+            <!-- Sticky Image coming from below -->
+            <div
+                class="sticky bottom-16 md:bottom-24 lg:top-[45vh] max-w-[800px] mx-auto px-8 w-full z-10 pt-[50vh] md:pt-[60vh]">
+                <div
+                    class="w-full aspect-video bg-surface-container-lowest rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] overflow-hidden border-[8px] border-white relative group">
+                    <img src="hero_finale.jpg" class="w-full h-full object-cover filter saturate-[0.8] contrast-[1.05]"
+                        alt="ACTS29 2기 피날레">
                     <div
-                        class="w-full aspect-video bg-surface-container-lowest rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] overflow-hidden border-[8px] border-white relative group">
-                        <img src="hero_finale.jpg" class="w-full h-full object-cover filter saturate-[0.8] contrast-[1.05]"
-                            alt="ACTS29 2기 피날레">
-                        <div
-                            class="absolute inset-0 bg-primary-container/10 mix-blend-soft-light transition-opacity hover:opacity-0 duration-700">
-                        </div>
+                        class="absolute inset-0 bg-primary-container/10 mix-blend-soft-light transition-opacity hover:opacity-0 duration-700">
                     </div>
                 </div>
             </div>
@@ -556,14 +553,14 @@
         </section>
 
         <!-- ======= 5단계: 권위 증명 (Authority) ======= -->
-        <section class="py-32 overflow-hidden relative" style="overflow-x: clip;">
+        <section class="py-32 relative" style="overflow-x: hidden;">
             <div class="max-w-[800px] mx-auto px-8 mb-12">
                 <span class="material-symbols-outlined text-4xl mb-4 text-tertiary-container">forum</span>
                 <h2 class="text-4xl font-black text-on-surface">ACTS29,<br />어떤 부분이 가장 만족스러웠나요?</h2>
             </div>
             <div class="flex gap-6 animate-marquee flex-nowrap hover:[animation-play-state:paused] pb-4">
                 <!-- Story Card 1 -->
-                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                <div class="min-w-[450px] whitespace-normal p-10 shrink-0 bg-white/60 rounded-[3rem] border-[1.5px] border-white/40 shadow-lg">
                     <h3 class="text-lg font-bold mb-6 flex items-start gap-2 text-on-surface">
                         🏁 아이디어를 실체화하는 '방법'을 배웠습니다!
                     </h3>
@@ -573,7 +570,7 @@
                     </div>
                 </div>
                 <!-- Story Card 2 -->
-                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                <div class="min-w-[450px] whitespace-normal p-10 shrink-0 bg-white/60 rounded-[3rem] border-[1.5px] border-white/40 shadow-lg">
                     <h3 class="text-lg font-bold mb-6 flex items-start gap-2 text-on-surface">
                         🚩 포기하고 싶을 때 지지해주는 든든한 페이스메이커
                     </h3>
@@ -583,7 +580,7 @@
                     </div>
                 </div>
                 <!-- Story Card 3 -->
-                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                <div class="min-w-[450px] whitespace-normal p-10 shrink-0 bg-white/60 rounded-[3rem] border-[1.5px] border-white/40 shadow-lg">
                     <h3 class="text-lg font-bold mb-6 flex items-start gap-2 text-on-surface">
                         🏳️ 안전하게 도전하고 실패할 수 있는 다정한 환경
                     </h3>
@@ -593,7 +590,7 @@
                     </div>
                 </div>
                 <!-- Clone for seamless loop -->
-                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                <div class="min-w-[450px] whitespace-normal p-10 shrink-0 bg-white/60 rounded-[3rem] border-[1.5px] border-white/40 shadow-lg">
                     <h3 class="text-lg font-bold mb-6 flex items-start gap-2 text-on-surface">
                         🏁 아이디어를 실체화하는 '방법'을 배웠습니다!
                     </h3>
@@ -602,7 +599,7 @@
                         <p><strong class="text-primary-container">서영 님 |</strong> 머릿속에 두루뭉술한 아이디어만 가득했는데, 실제로 구동하게 만드는 구체적인 방법과 과정을 세세히 배울 수 있었습니다.</p>
                     </div>
                 </div>
-                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                <div class="min-w-[450px] whitespace-normal p-10 shrink-0 bg-white/60 rounded-[3rem] border-[1.5px] border-white/40 shadow-lg">
                     <h3 class="text-lg font-bold mb-6 flex items-start gap-2 text-on-surface">
                         🚩 포기하고 싶을 때 지지해주는 든든한 페이스메이커
                     </h3>
@@ -611,7 +608,7 @@
                         <p><strong class="text-tertiary-container">교건 님 |</strong> 이런 모임, 이런 발표 자리를 가진 것만 해도 값어치가 있었습니다. 이렇게 준비하셨을 줄 몰랐어요.</p>
                     </div>
                 </div>
-                <div class="min-w-[450px] whitespace-normal glass-card p-10 shrink-0">
+                <div class="min-w-[450px] whitespace-normal p-10 shrink-0 bg-white/60 rounded-[3rem] border-[1.5px] border-white/40 shadow-lg">
                     <h3 class="text-lg font-bold mb-6 flex items-start gap-2 text-on-surface">
                         🏳️ 안전하게 도전하고 실패할 수 있는 다정한 환경
                     </h3>
