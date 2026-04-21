@@ -73,19 +73,17 @@
             letter-spacing: 0.3px;
             margin-bottom: 8px;
             pointer-events: none;
-            animation: promoGlow 2s ease-in-out infinite;
+            animation: promoBounce 2s ease-in-out infinite;
         }
 
-        @keyframes promoGlow {
+        @keyframes promoBounce {
             0%, 100% {
-                opacity: 1;
-                text-shadow: 0 0 6px rgba(245, 209, 30, 0.4);
                 transform: translateY(0);
+                text-shadow: 0 0 6px rgba(245, 209, 30, 0.4);
             }
             50% {
-                opacity: 0.85;
-                text-shadow: 0 0 12px rgba(245, 209, 30, 0.7);
                 transform: translateY(-4px);
+                text-shadow: 0 0 12px rgba(245, 209, 30, 0.7);
             }
         }
 
