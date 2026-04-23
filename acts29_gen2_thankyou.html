@@ -68,19 +68,44 @@
             font-weight: 700;
         }
 
-        .insta-btn {
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .btn-base {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 14px 28px;
-            background-color: transparent;
-            color: #FFFFFF;
-            border: 3px solid #00C4B4;
             border-radius: 8px;
             text-decoration: none;
             font-size: 16px;
             font-weight: 600;
             transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .discord-btn {
+            background-color: #5865F2;
+            color: #FFFFFF;
+            border: 3px solid #5865F2;
+        }
+
+        .discord-btn:hover {
+            background-color: #4752C4;
+            border-color: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .insta-btn {
+            background-color: transparent;
+            color: #FFFFFF;
+            border: 3px solid #00C4B4;
         }
 
         .insta-btn:hover {
@@ -164,9 +189,15 @@
             당신의 시작을 안전하게. <span class="accent1">ACTS29</span> 커뮤니티
         </p>
 
-        <a href="https://www.instagram.com/acts29community/" target="_blank" class="insta-btn">
-            ACTS29 커뮤니티 instagram 가기
-        </a>
+        <div class="btn-group">
+            <a href="https://discord.com/register?redirect_to=%2Fchannels%2F%40me" target="_blank"
+                class="btn-base discord-btn">
+                👉 디스코드 서버 가입하기 (필수)
+            </a>
+            <a href="https://www.instagram.com/acts29community/" target="_blank" class="btn-base insta-btn">
+                ACTS29 커뮤니티 instagram 가기
+            </a>
+        </div>
     </div>
 </body>
 
